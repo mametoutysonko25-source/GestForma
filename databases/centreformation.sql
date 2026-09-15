@@ -516,6 +516,133 @@ CREATE TABLE `REMUNERATION_FORMATEUR` (
     ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+-- --------------------------------------------------------
+-- Déchargement des données
+-- --------------------------------------------------------
+
+--
+-- Données pour la table `UTILISATEUR`
+--
+
+INSERT INTO `UTILISATEUR` (`idUtilisateur`, `nom`, `prenom`, `email`, `telephone`, `nomUtilisateur`, `motDePasseHash`, `statutCompte`, `dateCreation`, `derniereConnexion`) VALUES
+(1, 'Ndiaye', 'Moussa', 'admin@test.com', '770000001', 'admin', 'motdepasse_hash_admin', 'ACTIF', '2026-09-14 15:39:08', NULL),
+(2, 'Fall', 'Awa', 'pedagogie@test.com', '770000002', 'responsable_pedago', 'motdepasse_hash_pedagogie', 'ACTIF', '2026-09-14 15:39:08', NULL),
+(3, 'Ba', 'Ousmane', 'comptable@test.com', '770000003', 'comptable', 'motdepasse_hash_comptable', 'ACTIF', '2026-09-14 15:39:08', NULL),
+(4, 'Diop', 'Fatou', 'formateur@test.com', '770000004', 'formateur', 'motdepasse_hash_formateur', 'ACTIF', '2026-09-14 15:39:08', NULL),
+(5, 'Sarr', 'Ibrahima', 'etudiant@test.com', '770000005', 'etudiant', 'motdepasse_hash_etudiant', 'ACTIF', '2026-09-14 15:39:08', NULL);
+
+--
+-- Données pour la table `ADMINISTRATEUR`
+--
+
+INSERT INTO `ADMINISTRATEUR` (`idUtilisateur`) VALUES
+(1);
+
+--
+-- Données pour la table `DIRECTEUR`
+--
+
+INSERT INTO `DIRECTEUR` (`idUtilisateur`) VALUES
+(2);
+
+--
+-- Données pour la table `RESPONSABLE_PEDAGOGIQUE`
+--
+
+INSERT INTO `RESPONSABLE_PEDAGOGIQUE` (`idUtilisateur`, `matricule`, `specialite`, `datePriseFonction`) VALUES
+(2, 'RP-2026-001', 'Pédagogie', '2026-09-01');
+
+--
+-- Données pour la table `FORMATEUR`
+--
+
+INSERT INTO `FORMATEUR` (`idUtilisateur`, `matricule`, `specialite`, `adresse`, `experience`, `disponibilites`, `tarifHoraire`) VALUES
+(4, 'FORM-2026-001', 'Développement web', 'Dakar', 5, 'Lundi-Vendredi', 7500.00);
+
+--
+-- Données pour la table `COMPTABLE`
+--
+
+INSERT INTO `COMPTABLE` (`idUtilisateur`) VALUES
+(3);
+
+--
+-- Données pour la table `ETUDIANT`
+--
+
+INSERT INTO `ETUDIANT` (`idUtilisateur`, `matricule`, `dateNaissance`, `lieuNaissance`, `sexe`, `adresse`, `photo`, `personneUrgence`, `telephoneUrgence`, `dateInscription`, `situationProfessionnelle`, `statutParcours`) VALUES
+(5, 'ETU-2026-001', '2002-05-12', 'Dakar', 'M', 'Pikine, Dakar', NULL, 'Parent', '770000006', '2026-09-14', 'Étudiant', 'EN_COURS');
+
+--
+-- Données pour la table `FORMATION`
+--
+
+INSERT INTO `FORMATION` (`idFormation`, `nom`, `description`, `duree`) VALUES
+(1, 'Développement web', 'Formation en développement web et bases de données', 12);
+
+--
+-- Données pour la table `NIVEAU`
+--
+
+INSERT INTO `NIVEAU` (`idNiveau`, `libelle`, `ordre`, `idFormation`) VALUES
+(1, 'L1', 1, 1);
+
+--
+-- Données pour la table `SEMESTRE`
+--
+
+INSERT INTO `SEMESTRE` (`idSemestre`, `libelle`, `ordre`, `description`, `idNiveau`) VALUES
+(1, 'S1', 1, 'Premier semestre', 1);
+
+--
+-- Données pour la table `MODULE`
+--
+
+INSERT INTO `MODULE` (`idModule`, `code`, `libelle`, `description`, `volumeHoraire`, `idSemestre`, `idFormateur`) VALUES
+(1, 'SQL101', 'Bases de données', 'Introduction à MySQL et à la conception relationnelle', 40, 1, 4);
+
+--
+-- Données pour la table `SEANCE`
+--
+
+INSERT INTO `SEANCE` (`idSeance`, `dateSeance`, `heureDebut`, `heureFin`, `statut`, `idModule`, `idFormateur`) VALUES
+(1, '2026-10-05', '08:00:00', '10:00:00', 'VALIDEE', 1, 4);
+
+--
+-- Données pour la table `PRESENCE`
+--
+
+INSERT INTO `PRESENCE` (`idPresence`, `statutPresence`, `heureArrivee`, `justification`, `dateJustification`, `validee`, `idSeance`, `idEtudiant`) VALUES
+(1, 'PRESENT', NULL, NULL, NULL, 1, 1, 5);
+
+--
+-- Données pour la table `DOSSIER_ETUDIANT`
+--
+
+INSERT INTO `DOSSIER_ETUDIANT` (`idDossier`, `anneeScolaire`, `statut`, `dateCreation`, `idEtudiant`) VALUES
+(1, '2026-2027', 'ACTIF', '2026-09-14 15:39:08', 5);
+
+--
+-- Données pour la table `INSCRIPTION`
+--
+
+INSERT INTO `INSCRIPTION` (`idInscription`, `dateInscription`, `statut`, `idDossier`, `idNiveau`) VALUES
+(1, '2026-09-14', 'VALIDEE', 1, 1);
+
+--
+-- Données pour la table `PAIEMENT`
+--
+
+INSERT INTO `PAIEMENT` (`idPaiement`, `montant`, `datePaiement`, `modePaiement`, `reference`, `idInscription`) VALUES
+(1, 100000.00, '2026-09-14 15:39:10', 'ESPECES', 'PAY-2026-0001', 1);
+
+--
+-- Données pour la table `REMUNERATION_FORMATEUR`
+--
+
+INSERT INTO `REMUNERATION_FORMATEUR` (`idRemuneration`, `mois`, `heuresValidees`, `montantDu`, `montantPaye`, `statut`, `idFormateur`) VALUES
+(1, '2026-09', 2.00, 15000.00, 0.00, 'A_PAYER', 4);
+
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
