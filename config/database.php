@@ -2,7 +2,7 @@
 $serveur = "localhost";
 $utilisateur = "root";
 $motDePasse = "";
-$base = "centreformation";
+$base = "GestForma";
 
 try {
     $dsn = "mysql:host=$serveur;dbname=$base;charset=utf8mb4";
