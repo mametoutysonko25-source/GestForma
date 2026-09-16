@@ -3,9 +3,10 @@
 session_start();
 
 
-$_SESSION['nom_utilisateur'] = $_SESSION['nom_utilisateur'] ?? 'Fatou Kine Sene';
-$_SESSION['role_utilisateur'] = $_SESSION['role_utilisateur'] ?? 'etudiante';
-$_SESSION['nb_notifications'] = $_SESSION['nb_notifications'] ?? 3;
+
+$_SESSION['nom_utilisateur'] = 'Awa Fall';
+$_SESSION['role_utilisateur'] = 'responsable_pedagogique';
+
 
 $titrePage = 'Tableau de bord';
 

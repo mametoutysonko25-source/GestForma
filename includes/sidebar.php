@@ -25,7 +25,7 @@ $menuParRole = [
         ['label' => 'Saisie des notes', 'url' => '/formateur/notes.php', 'icon' => '✏️'],
         ['label' => 'Rémunération', 'url' => '/formateur/remuneration.php', 'icon' => '💰'],
     ],
-    'responsable' => [
+    'responsable_pedagogique' => [
         ['label' => 'Étudiants', 'url' => '/responsable/etudiants.php', 'icon' => '🎓'],
         ['label' => 'Inscriptions', 'url' => '/responsable/inscriptions.php', 'icon' => '📥'],
         ['label' => 'Formations', 'url' => '/responsable/formations.php', 'icon' => '📘'],
@@ -36,6 +36,7 @@ $menuParRole = [
         ['label' => 'Présences', 'url' => '/responsable/presences.php', 'icon' => '✅'],
         ['label' => 'Résultats', 'url' => '/responsable/resultats.php', 'icon' => '📊'],
     ],
+
     'comptable' => [
         ['label' => 'Paiements étudiants', 'url' => '/comptable/paiements.php', 'icon' => '💳'],
         ['label' => 'Situations financières', 'url' => '/comptable/situations.php', 'icon' => '📊'],
