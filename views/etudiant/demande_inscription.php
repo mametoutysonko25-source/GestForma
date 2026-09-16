@@ -1,0 +1,74 @@
+<?php
+session_start();
+require_once '../../controllers/InscriptionController.php';
+
+if (!isset($_SESSION['idUtilisateur'])) {
+    header("Location: ../../index.php");
+    exit();
+}
+
+$controller = new InscriptionController();
+$message = "";
+$erreur = "";
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $idNiveau = $_POST['idNiveau'];
+    $anneeScolaire = $_POST['anneeScolaire'];
+    $idEtudiant = $_SESSION['idUtilisateur'];
+
+    if ($controller->demanderInscription($idEtudiant, $idNiveau, $anneeScolaire)) {
+        $message = "Votre demande d'inscription a été soumise avec succès.";
+    } else {
+        $erreur = "Une erreur est survenue lors de la demande d'inscription.";
+    }
+}
+?>
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Demande d'inscription</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 600px; margin: 50px auto; padding: 20px; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        input, select { width: 100%; padding: 8px; box-sizing: border-box; }
+        button { background: #007bff; color: white; padding: 10px 20px; border: none; cursor: pointer; }
+        .message { color: green; margin-bottom: 15px; }
+        .erreur { color: red; margin-bottom: 15px; }
+    </style>
+</head>
+<body>
+    <h1>Demande d'inscription</h1>
+    
+    <?php if ($message): ?>
+        <div class="message"><?php echo $message; ?></div>
+    <?php endif; ?>
+    
+    <?php if ($erreur): ?>
+        <div class="erreur"><?php echo $erreur; ?></div>
+    <?php endif; ?>
+
+    <form method="POST">
+        <div class="form-group">
+            <label for="anneeScolaire">Année scolaire :</label>
+            <input type="text" id="anneeScolaire" name="anneeScolaire" value="2026-2027" required>
+        </div>
+
+        <div class="form-group">
+            <label for="idNiveau">Niveau souhaité :</label>
+            <select id="idNiveau" name="idNiveau" required>
+                <option value="">Sélectionner un niveau</option>
+                <option value="1">L1 - Première année</option>
+                <option value="2">L2 - Deuxième année</option>
+                <option value="3">L3 - Troisième année</option>
+            </select>
+        </div>
+
+        <button type="submit">Soumettre la demande</button>
+    </form>
+
+    <p><a href="etat_inscription.php">Voir l'état de ma demande</a></p>
+</body>
+</html>
