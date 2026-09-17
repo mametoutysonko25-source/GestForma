@@ -7,7 +7,7 @@ abstract class BaseController
 {
     protected function redirect(string $path): void
     {
-        header('Location: ' . $path);
+        header('Location: ' . BASE_URL . ltrim($path, '/'));
         exit;
     }
 
