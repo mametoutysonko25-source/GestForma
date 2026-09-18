@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once '../../controllers/PaiementController.php';
+require_once __DIR__ . '/../../controllers/PaiementController.php';
 
 if (!isset($_SESSION['idUtilisateur'])) {
     header("Location: ../../index.php");
@@ -12,7 +12,6 @@ $message = "";
 $erreur = "";
 $inscription = null;
 
-// Récupérer l'inscription si idInscription est fourni
 if (isset($_GET['idInscription'])) {
     $inscriptions = $controller->getInscriptionsValidees();
     foreach ($inscriptions as $ins) {
@@ -23,7 +22,6 @@ if (isset($_GET['idInscription'])) {
     }
 }
 
-// Traitement du formulaire
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $montant = $_POST['montant'];
     $modePaiement = $_POST['modePaiement'];
@@ -37,7 +35,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-// Récupérer l'historique des paiements
 $paiements = [];
 $totalPaye = 0;
 if ($inscription) {
@@ -157,5 +154,6 @@ if ($inscription) {
     <?php endif; ?>
 
     <p><a href="paiements_etudiants.php">Retour à la liste</a></p>
+<p><a href="../../index.php?logout=1">Se déconnecter / changer de rôle</a></p>
 </body>
 </html>

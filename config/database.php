@@ -1,23 +1,25 @@
 <?php
-$serveur = "localhost";
-$utilisateur = "root";
-$motDePasse = "";
-$base = "centreformation";
+class Database {
+    private $host = "localhost";
+    private $db_name = "centreformation";
+    private $username = "root";
+    private $password = "";
+    public $conn;
 
-try {
-    $dsn = "mysql:host=$serveur;dbname=$base;charset=utf8mb4";
-    $connexion = new PDO($dsn, $utilisateur, $motDePasse, [
-        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-    ]);
-
-    echo "Connexion à la base réussie.<br>";
-
-    $requete = "SELECT COUNT(*) AS total FROM utilisateurs";
-    $total = $connexion->query($requete)->fetchColumn();
-
-    echo "Nombre d'utilisateurs : " . $total;
-} catch (PDOException $exception) {
-    die("Échec de la connexion ou de la requête : " . $exception->getMessage());
+    public function getConnection() {
+        $this->conn = null;
+        try {
+            $this->conn = new PDO(
+                "mysql:host=" . $this->host . ";dbname=" . $this->db_name,
+                $this->username,
+                $this->password
+            );
+            $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $this->conn->exec("set names utf8mb4");
+        } catch(PDOException $exception) {
+            echo "Erreur de connexion : " . $exception->getMessage();
+        }
+        return $this->conn;
+    }
 }
 ?>

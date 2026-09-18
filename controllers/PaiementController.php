@@ -1,6 +1,6 @@
 <?php
-require_once '../config/database.php';
-require_once '../models/Paiement.php';
+require_once __DIR__ . '/../config/database.php';
+require_once __DIR__ . '/../models/Paiement.php';
 
 class PaiementController {
     private $db;

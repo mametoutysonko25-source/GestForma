@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once '../../controllers/PaiementController.php';
+require_once __DIR__ . '/../../controllers/PaiementController.php';
 
 if (!isset($_SESSION['idUtilisateur'])) {
     header("Location: ../../index.php");
@@ -65,5 +65,6 @@ $inscriptions = $controller->getInscriptionsValidees();
     </table>
 
     <p><a href="enregistrer_paiement.php">Nouveau paiement</a></p>
+<p><a href="../../index.php?logout=1">Se déconnecter / changer de rôle</a></p>
 </body>
 </html>
