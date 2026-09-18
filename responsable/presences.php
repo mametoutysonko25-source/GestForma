@@ -1,1 +1,0 @@
-<?php $pageTitle = 'Présences'; $pageDescription = 'La gestion des présences sera disponible ici.'; $allowedRoles = ['responsable']; require __DIR__ . '/../views/shared/page.php';

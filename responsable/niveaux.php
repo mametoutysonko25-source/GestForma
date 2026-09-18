@@ -1,1 +1,0 @@
-<?php $pageTitle = 'Niveaux et semestres'; $pageDescription = 'La gestion des niveaux et semestres sera disponible ici.'; $allowedRoles = ['responsable']; require __DIR__ . '/../views/shared/page.php';

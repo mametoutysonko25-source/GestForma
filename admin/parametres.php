@@ -1,1 +1,0 @@
-<?php $pageTitle = 'Paramètres système'; $pageDescription = 'Les paramètres système seront disponibles ici.'; $allowedRoles = ['administrateur']; require __DIR__ . '/../views/shared/page.php';

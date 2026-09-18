@@ -1,1 +1,0 @@
-<?php $pageTitle = 'Saisie des notes'; $pageDescription = 'La saisie des notes sera disponible ici.'; $allowedRoles = ['formateur']; require __DIR__ . '/../views/shared/page.php';

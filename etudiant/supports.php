@@ -1,1 +1,0 @@
-<?php $pageTitle = 'Supports de cours'; $pageDescription = 'Vos supports de cours seront disponibles ici.'; $allowedRoles = ['etudiant']; require __DIR__ . '/../views/shared/page.php';

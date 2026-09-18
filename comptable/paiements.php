@@ -1,1 +1,0 @@
-<?php $pageTitle = 'Paiements étudiants'; $pageDescription = 'La gestion des paiements étudiants sera disponible ici.'; $allowedRoles = ['comptable']; require __DIR__ . '/../views/shared/page.php';

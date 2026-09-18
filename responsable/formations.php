@@ -1,1 +1,0 @@
-<?php $pageTitle = 'Formations'; $pageDescription = 'La gestion des formations sera disponible ici.'; $allowedRoles = ['responsable']; require __DIR__ . '/../views/shared/page.php';

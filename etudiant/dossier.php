@@ -1,1 +1,0 @@
-<?php $pageTitle = 'Mon dossier'; $pageDescription = 'Votre dossier étudiant sera disponible ici.'; $allowedRoles = ['etudiant']; require __DIR__ . '/../views/shared/page.php';

@@ -1,1 +1,0 @@
-<?php $pageTitle = 'Feuille d’appel'; $pageDescription = 'La feuille d’appel sera disponible ici.'; $allowedRoles = ['formateur']; require __DIR__ . '/../views/shared/page.php';

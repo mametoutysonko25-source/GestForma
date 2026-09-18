@@ -1,1 +1,0 @@
-<?php $pageTitle = 'Utilisateurs'; $pageDescription = 'La gestion des utilisateurs sera disponible ici.'; $allowedRoles = ['administrateur']; require __DIR__ . '/../views/shared/page.php';

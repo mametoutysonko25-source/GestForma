@@ -1,1 +1,0 @@
-<?php $pageTitle = 'Rôles et accès'; $pageDescription = 'La gestion des rôles et des permissions sera disponible ici.'; $allowedRoles = ['administrateur']; require __DIR__ . '/../views/shared/page.php';

@@ -1,1 +1,0 @@
-<?php $pageTitle = 'Résultats'; $pageDescription = 'Vos résultats seront disponibles ici.'; $allowedRoles = ['etudiant']; require __DIR__ . '/../views/shared/page.php';

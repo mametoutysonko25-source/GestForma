@@ -1,1 +1,0 @@
-<?php $pageTitle = 'Rémunération'; $pageDescription = 'La rémunération sera disponible ici.'; $allowedRoles = ['formateur']; require __DIR__ . '/../views/shared/page.php';

@@ -1,1 +1,0 @@
-<?php $pageTitle = 'Modules'; $pageDescription = 'La gestion des modules sera disponible ici.'; $allowedRoles = ['responsable']; require __DIR__ . '/../views/shared/page.php';
