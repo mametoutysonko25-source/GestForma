@@ -1,0 +1,1 @@
+<?php $pageTitle = 'Rémunérations'; $pageDescription = 'La gestion des rémunérations sera disponible ici.'; $allowedRoles = ['comptable']; require __DIR__ . '/../views/shared/page.php';

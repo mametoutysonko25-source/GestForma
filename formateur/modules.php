@@ -1,0 +1,1 @@
+<?php $pageTitle = 'Mes modules'; $pageDescription = 'Vos modules seront disponibles ici.'; $allowedRoles = ['formateur']; require __DIR__ . '/../views/shared/page.php';

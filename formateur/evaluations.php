@@ -1,0 +1,1 @@
+<?php $pageTitle = 'Évaluations'; $pageDescription = 'La gestion des évaluations sera disponible ici.'; $allowedRoles = ['formateur']; require __DIR__ . '/../views/shared/page.php';

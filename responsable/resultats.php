@@ -1,0 +1,1 @@
+<?php $pageTitle = 'Résultats'; $pageDescription = 'La gestion des résultats sera disponible ici.'; $allowedRoles = ['responsable']; require __DIR__ . '/../views/shared/page.php';

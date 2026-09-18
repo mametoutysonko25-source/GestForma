@@ -1,0 +1,1 @@
+<?php $pageTitle = 'Personnel'; $pageDescription = 'La gestion du personnel sera disponible ici.'; $allowedRoles = ['directeur']; require __DIR__ . '/../views/shared/page.php';

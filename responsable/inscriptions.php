@@ -1,0 +1,1 @@
+<?php $pageTitle = 'Inscriptions'; $pageDescription = 'La gestion des inscriptions sera disponible ici.'; $allowedRoles = ['responsable']; require __DIR__ . '/../views/shared/page.php';

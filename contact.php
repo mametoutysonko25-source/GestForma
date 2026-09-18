@@ -1,0 +1,1 @@
+<?php $pageTitle = 'Contact'; $pageDescription = 'Les coordonnées du centre de formation seront disponibles ici.'; $showSidebar = false; require __DIR__ . '/views/shared/page.php';

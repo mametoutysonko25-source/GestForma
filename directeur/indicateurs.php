@@ -1,0 +1,1 @@
+<?php $pageTitle = 'Indicateurs'; $pageDescription = 'Les indicateurs de pilotage seront disponibles ici.'; $allowedRoles = ['directeur']; require __DIR__ . '/../views/shared/page.php';

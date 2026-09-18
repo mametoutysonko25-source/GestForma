@@ -1,0 +1,1 @@
+<?php $pageTitle = 'Travaux à corriger'; $pageDescription = 'Les travaux à corriger seront disponibles ici.'; $allowedRoles = ['formateur']; require __DIR__ . '/../views/shared/page.php';

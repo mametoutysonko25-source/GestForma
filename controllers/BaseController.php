@@ -21,7 +21,10 @@ abstract class BaseController
         return $_GET[$key] ?? $default;
     }
 
-   
+    /**
+     * Vérifie que l'utilisateur est connecté avec l'un des rôles autorisés.
+     * Sinon, redirige vers la page de connexion.
+     */
     protected function requireRole(array $rolesAutorises): array
     {
         if (!isset($_SESSION['user']) || !in_array($_SESSION['user']['role'], $rolesAutorises, true)) {

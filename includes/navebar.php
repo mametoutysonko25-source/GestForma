@@ -1,7 +1,7 @@
 <?php
 // includes/navbar.php
 // Navbar commune/générique - GestForm
-$roleUtilisateur = $_SESSION['role_utilisateur'] ?? 'invite';
+$roleUtilisateur = $_SESSION['user']['role'] ?? $_SESSION['role_utilisateur'] ?? 'invite';
 
 $liensCommuns = [
     ['label' => 'Accueil', 'url' => '/index.php', 'icon' => '🏠'],
@@ -73,4 +73,4 @@ $pageActuelle = basename($_SERVER['PHP_SELF'] ?? '');
     </ul>
 </nav>
 
-<script src="assets/js/navbar.js"></script>
+<script src="/assets/js/navebar.js"></script>

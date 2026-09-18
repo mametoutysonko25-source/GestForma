@@ -4,110 +4,50 @@ require_once __DIR__ . '/../config/database.php';
 
 class User
 {
-    
-    public const ROLE_TABLES = [
-        'etudiant'       => 'ETUDIANT',
-        'formateur'      => 'FORMATEUR',
-        'responsable'    => 'RESPONSABLE_PEDAGOGIQUE',
-        'comptable'      => 'COMPTABLE',
-        'directeur'      => 'DIRECTEUR',
-        'administrateur' => 'ADMINISTRATEUR',
-    ];
+	public const ROLE_TABLES = [
+		'etudiant' => 'etudiant',
+		'formateur' => 'formateur',
+		'responsable' => 'responsable_pedagogique',
+		'comptable' => 'comptable',
+		'administrateur' => 'administrateur',
+		'directeur' => 'directeur',
+	];
 
-    
-    public static function findForLogin(string $email, string $role): ?array
-    {
-        if (!isset(self::ROLE_TABLES[$role])) {
-            return null;
-        }
-        $table = self::ROLE_TABLES[$role];
+	public static function findForLogin(string $email, string $role): ?array
+	{
+		if (!isset(self::ROLE_TABLES[$role])) {
+			return null;
+		}
 
-        $pdo = getPDO();
-     
-        $sql = "SELECT u.*, r.*
-                FROM UTILISATEUR u
-                INNER JOIN {$table} r ON r.idUtilisateur = u.idUtilisateur
-                WHERE u.email = :email
-                LIMIT 1";
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute(['email' => $email]);
-        $user = $stmt->fetch();
+		$roleTable = self::ROLE_TABLES[$role];
+		$sql = "SELECT u.idUtilisateur, u.nom, u.prenom, u.email,
+					   u.motDePasseHash, u.statutCompte
+				FROM utilisateur u
+				INNER JOIN {$roleTable} r ON r.idUtilisateur = u.idUtilisateur
+				WHERE LOWER(u.email) = LOWER(:email)
+				LIMIT 1";
+		$statement = database()->prepare($sql);
+		$statement->execute(['email' => $email]);
+		$user = $statement->fetch();
 
-        return $user ?: null;
-    }
+		return $user ?: null;
+	}
 
-    
-    public static function verifyPassword(string $motDePasseClair, string $hash): bool
-    {
-        return password_verify($motDePasseClair, $hash);
-    }
+	public static function verifyPassword(string $password, string $hash): bool
+	{
+		return password_verify($password, $hash);
+	}
 
-    public static function estActif(array $user): bool
-    {
-        return ($user['statutCompte'] ?? null) === 'actif';
-    }
+	public static function estActif(array $user): bool
+	{
+		return strtoupper((string) ($user['statutCompte'] ?? '')) === 'ACTIF';
+	}
 
-    public static function updateLastLogin(int $idUtilisateur): void
-    {
-        $pdo = getPDO();
-        $stmt = $pdo->prepare('UPDATE UTILISATEUR SET derniereConnexion = NOW() WHERE idUtilisateur = :id');
-        $stmt->execute(['id' => $idUtilisateur]);
-    }
-
-   
-    private static function createUtilisateur(string $nom, string $prenom, string $email, string $telephone, string $nomUtilisateur, string $motDePasse): int
-    {
-        $pdo = getPDO();
-        $stmt = $pdo->prepare(
-            'INSERT INTO UTILISATEUR (nom, prenom, email, telephone, nomUtilisateur, motDePasseHash, statutCompte, dateCreation)
-             VALUES (:nom, :prenom, :email, :telephone, :nomUtilisateur, :hash, :statut, NOW())'
-        );
-        $stmt->execute([
-            'nom'            => $nom,
-            'prenom'         => $prenom,
-            'email'          => $email,
-            'telephone'      => $telephone,
-            'nomUtilisateur' => $nomUtilisateur,
-            'hash'           => password_hash($motDePasse, PASSWORD_DEFAULT),
-            'statut'         => 'actif',
-        ]);
-        return (int) $pdo->lastInsertId();
-    }
-
-   
-    public static function createEtudiant(
-        string $nom,
-        string $prenom,
-        string $email,
-        string $telephone,
-        string $nomUtilisateur,
-        string $motDePasse,
-        string $dateNaissance,
-        string $lieuNaissance,
-        string $sexe
-    ): int {
-        $pdo = getPDO();
-        $pdo->beginTransaction();
-        try {
-            $idUtilisateur = self::createUtilisateur($nom, $prenom, $email, $telephone, $nomUtilisateur, $motDePasse);
-
-            $stmt = $pdo->prepare(
-                'INSERT INTO ETUDIANT (idUtilisateur, dateNaissance, lieuNaissance, sexe, dateInscription, statutParcours)
-                 VALUES (:id, :dateNaissance, :lieuNaissance, :sexe, NOW(), :statutParcours)'
-            );
-            $stmt->execute([
-                'id'            => $idUtilisateur,
-                'dateNaissance' => $dateNaissance,
-                'lieuNaissance' => $lieuNaissance,
-                'sexe'          => $sexe,
-                'statutParcours'=> 'dossier_incomplet',
-            ]);
-
-            $pdo->commit();
-            return $idUtilisateur;
-        } catch (Exception $e) {
-            $pdo->rollBack();
-            throw $e;
-        }
-    }
+	public static function updateLastLogin(int $id): void
+	{
+		$statement = database()->prepare(
+			'UPDATE utilisateur SET derniereConnexion = CURRENT_TIMESTAMP WHERE idUtilisateur = :id'
+		);
+		$statement->execute(['id' => $id]);
+	}
 }

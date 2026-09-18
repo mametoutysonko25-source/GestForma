@@ -1,0 +1,1 @@
+<?php $pageTitle = 'À propos'; $pageDescription = 'Présentation de la plateforme GestForm.'; $showSidebar = false; require __DIR__ . '/views/shared/page.php';

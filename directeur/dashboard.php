@@ -1,0 +1,1 @@
+<?php require __DIR__ . '/../views/directeur/dashboard.php';

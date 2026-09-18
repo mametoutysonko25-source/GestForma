@@ -1,5 +1,6 @@
 <?php
 
+
 class Router
 {
     public static function dispatch(array $routes, string $paramName = 'action', ?string $default = null): void

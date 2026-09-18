@@ -1,0 +1,1 @@
+<?php $pageTitle = 'Impayés'; $pageDescription = 'Le suivi des impayés sera disponible ici.'; $allowedRoles = ['comptable']; require __DIR__ . '/../views/shared/page.php';

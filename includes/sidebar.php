@@ -1,12 +1,12 @@
 <?php
 // includes/sidebar.php
 // Sidebar commune/générique - GestForm
-$roleUtilisateur = $_SESSION['role_utilisateur'] ?? 'invite';
+$roleUtilisateur = $_SESSION['user']['role'] ?? $_SESSION['role_utilisateur'] ?? 'invite';
 $pageActuelle = basename($_SERVER['PHP_SELF'] ?? '');
 
 $menuParRole = [
-    'etudiante' => [
-        ['label' => 'Tableau de bord', 'url' => '/etudiant/dashboard.php', 'icon' => '📊'],
+    'etudiant' => [
+        ['label' => 'Tableau de bord', 'url' => '/views/etudiant/dashboard.php', 'icon' => '📊'],
         ['label' => 'Mon dossier', 'url' => '/etudiant/dossier.php', 'icon' => '📁'],
         ['label' => 'Emploi du temps', 'url' => '/etudiant/planning.php', 'icon' => '🗓️'],
         ['label' => 'Modules', 'url' => '/etudiant/modules.php', 'icon' => '📚'],
@@ -25,7 +25,7 @@ $menuParRole = [
         ['label' => 'Saisie des notes', 'url' => '/formateur/notes.php', 'icon' => '✏️'],
         ['label' => 'Rémunération', 'url' => '/formateur/remuneration.php', 'icon' => '💰'],
     ],
-    'responsable_pedagogique' => [
+    'responsable' => [
         ['label' => 'Étudiants', 'url' => '/responsable/etudiants.php', 'icon' => '🎓'],
         ['label' => 'Inscriptions', 'url' => '/responsable/inscriptions.php', 'icon' => '📥'],
         ['label' => 'Formations', 'url' => '/responsable/formations.php', 'icon' => '📘'],
@@ -83,4 +83,4 @@ $menuItems = $menuParRole[$roleUtilisateur] ?? [];
     </ul>
 </aside>
 
-<script src="assets/js/sidebar.js"></script>
+<script src="/assets/js/sidebar.js"></script>

@@ -3,6 +3,10 @@
 // Footer commun/générique - GestForm
 $anneeActuelle = date('Y');
 ?>
+<?php if (!empty($showSidebar)): ?>
+            </main>
+        </div>
+<?php endif; ?>
 <footer class="gf-footer">
     <div class="gf-footer__left">
         <span>&copy; <?php echo $anneeActuelle; ?> GestForm — CEFAS. Tous droits réservés.</span>

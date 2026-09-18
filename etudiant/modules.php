@@ -1,0 +1,1 @@
+<?php $pageTitle = 'Modules'; $pageDescription = 'Vos modules de formation seront disponibles ici.'; $allowedRoles = ['etudiant']; require __DIR__ . '/../views/shared/page.php';

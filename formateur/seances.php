@@ -1,0 +1,1 @@
+<?php $pageTitle = 'Mes séances'; $pageDescription = 'Vos séances seront disponibles ici.'; $allowedRoles = ['formateur']; require __DIR__ . '/../views/shared/page.php';

@@ -1,0 +1,1 @@
+<?php $pageTitle = 'Affectations'; $pageDescription = 'La gestion des affectations sera disponible ici.'; $allowedRoles = ['responsable']; require __DIR__ . '/../views/shared/page.php';
