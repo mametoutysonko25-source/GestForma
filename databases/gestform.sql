@@ -385,18 +385,12 @@ CREATE TABLE `utilisateur` (
 --
 
 INSERT INTO `utilisateur` (`idUtilisateur`, `nom`, `prenom`, `email`, `telephone`, `nomUtilisateur`, `motDePasseHash`, `statutCompte`, `dateCreation`, `derniereConnexion`) VALUES
-(1, 'Ba', 'Ibrahima', 'admin@gestform.test', '770000004', 'admin.demo', '$2y$12$StG8nsKv9bljIB5ALa7/F./cZM7ETTgP2GJZ8.dWzZ1/.rEREinde', 'ACTIF', '2026-09-15 15:39:40', '2026-09-15 15:51:11'),
-(2, 'Sow', 'Fatou', 'directeur@gestform.test', '770000005', 'directeur.demo', '$2y$12$StG8nsKv9bljIB5ALa7/F./cZM7ETTgP2GJZ8.dWzZ1/.rEREinde', 'ACTIF', '2026-09-15 15:39:40', NULL),
-(3, 'Diallo', 'Awa', 'rp@gestform.test', '770000001', 'rp.demo', '$2y$12$StG8nsKv9bljIB5ALa7/F./cZM7ETTgP2GJZ8.dWzZ1/.rEREinde', 'ACTIF', '2026-09-15 15:39:40', '2026-09-15 15:51:29'),
-(4, 'Ndiaye', 'Moussa', 'formateur@gestform.test', '770000002', 'formateur.demo', '$2y$12$StG8nsKv9bljIB5ALa7/F./cZM7ETTgP2GJZ8.dWzZ1/.rEREinde', 'ACTIF', '2026-09-15 15:39:40', NULL),
-(5, 'Diop', 'Mamadou', 'comptable@gestform.test', '770000006', 'comptable.demo', '$2y$12$StG8nsKv9bljIB5ALa7/F./cZM7ETTgP2GJZ8.dWzZ1/.rEREinde', 'ACTIF', '2026-09-15 15:39:40', NULL),
-(6, 'Fall', 'Aminata', 'etudiant@gestform.test', '770000003', 'etudiant.demo', '$2y$12$StG8nsKv9bljIB5ALa7/F./cZM7ETTgP2GJZ8.dWzZ1/.rEREinde', 'ACTIF', '2026-09-15 15:39:40', NULL);
-(1, 'Ba', 'Ibrahima', 'admin@centre-formation.sn', '770000004', 'admin.demo', '$2y$10$fX40oZytncyf6Y7E3XvE8eYCkylvoBfoVTZAQl9C8Oze1rtiFFSSW', 'ACTIF', '2026-09-15 15:39:40', '2026-09-15 15:51:11'),
-(2, 'Sow', 'Fatou', 'directeur@centre-formation.sn', '770000005', 'directeur.demo', '$2y$10$R2h7JE9Li5Kg9f4HjIu1b.nCXu5Q5H9421SpW6p5u2Vg3BatIbEs.', 'ACTIF', '2026-09-15 15:39:40', NULL),
-(3, 'Diallo', 'Awa', 'pedagogie@centre-formation.sn', '770000001', 'pedagogie.demo', '$2y$10$fGmn8lIiRKzn7Iw.NZJ3butYItwnolw7VU4w8KOjXQ8eMbZd51IWO', 'ACTIF', '2026-09-15 15:39:40', '2026-09-15 15:51:29'),
-(4, 'Ndiaye', 'Moussa', 'formateur@centre-formation.sn', '770000002', 'formateur.demo', '$2y$10$QGXq9kwMxGLKy1bYz1Cme.Y5cKD2Q0DSgJ6qSgMLeggMYmo8KfzGm', 'ACTIF', '2026-09-15 15:39:40', NULL),
-(5, 'Diop', 'Mamadou', 'comptable@centre-formation.sn', '770000006', 'comptable.demo', '$2y$10$MFG9eR1nOsvERlcDcUpi/OK.qYKaLXaOqgcRS.IxVc2W5dg/T26Ai', 'ACTIF', '2026-09-15 15:39:40', NULL),
-(6, 'Fall', 'Aminata', 'etudiant@centre-formation.sn', '770000003', 'etudiant.demo', '$2y$10$FPj4XNbuzOzYvjLqQtDdu.GRcGFT8/y6W3aQK46FqjLn8W50n70qu', 'ACTIF', '2026-09-15 15:39:40', NULL);
+(1, 'Ba', 'Ibrahima', 'admin@centre-formation.sn', '770000004', 'admin.demo', '$2y$10$HfdKviQNPeXSoN/TSNf8qOLJaH50KsvSaSQI5ark3bKqB7AkpBfkC', 'ACTIF', '2026-09-15 15:39:40', NULL),
+(2, 'Sow', 'Fatou', 'directeur@centre-formation.sn', '770000005', 'directeur.demo', '$2y$10$j3/Vod2D./F0hmYU/FhMvukLS9ivY.eJO0dic.B/i1KiD0T4Px1OO', 'ACTIF', '2026-09-15 15:39:40', NULL),
+(3, 'Diallo', 'Awa', 'pedagogie@centre-formation.sn', '770000001', 'pedagogie.demo', '$2y$10$zd13ubLzIrSMeHs80L/nPelltdHq/rndcPfVfYTbSBBycHU6.pnw.', 'ACTIF', '2026-09-15 15:39:40', NULL),
+(4, 'Ndiaye', 'Moussa', 'formateur@centre-formation.sn', '770000002', 'formateur.demo', '$2y$10$p5z9Tk4wJV6oyXpSB68qR.SbfQyrVHsE2Sj4/9hoCUptHgjpOSaRS', 'ACTIF', '2026-09-15 15:39:40', NULL),
+(5, 'Diop', 'Mamadou', 'comptable@centre-formation.sn', '770000006', 'comptable.demo', '$2y$10$A1e7zY//BzyvW7ufuvpbEuJq3lWbwHIzYAFaV95EtBj/Y8Wq2mqIq', 'ACTIF', '2026-09-15 15:39:40', NULL),
+(6, 'Fall', 'Aminata', 'etudiant@centre-formation.sn', '770000003', 'etudiant.demo', '$2y$10$XqpsKFbTrrV0O67sZyhzeuKcZz7q9qXvK4cDdtw5cB4OSefe/rU9.', 'ACTIF', '2026-09-15 15:39:40', NULL);
 
 --
 -- Index pour les tables déchargées
