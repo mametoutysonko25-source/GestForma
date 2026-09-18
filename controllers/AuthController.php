@@ -30,10 +30,6 @@ class AuthController extends BaseController
                 $this->redirect('/views/auth/login.php?erreur=identifiants_incorrects');
         }
 
-        if (($user['statutCompte'] ?? null) === 'en_attente') {
-            $this->redirect('/views/auth/login.php?erreur=compte_en_attente');
-        }
-
         if (!User::estActif($user)) {
                 $this->redirect('/views/auth/login.php?erreur=compte_desactive');
         }
@@ -63,71 +59,6 @@ class AuthController extends BaseController
         $this->redirect(DASHBOARD_PAR_ROLE[$role] ?? '/index.php');
     }
 
-    public function register(): void
-    {
-        $role           = $this->post('role', '');
-        $nom            = trim($this->post('nom', ''));
-        $prenom         = trim($this->post('prenom', ''));
-        $email          = trim($this->post('email', ''));
-        $telephone      = trim($this->post('telephone', ''));
-        $nomUtilisateur = trim($this->post('nomUtilisateur', ''));
-        $motDePasse     = $this->post('password', '');
-        $motDePasse2    = $this->post('password2', '');
-
-        $rolesInscriptibles = ['etudiant', 'responsable', 'comptable'];
-        if (!in_array($role, $rolesInscriptibles, true)) {
-            $this->redirect('/views/auth/register.php?erreur=role_invalide');
-        }
-
-        if ($nom === '' || $prenom === '' || $email === '' || $nomUtilisateur === '' || $motDePasse === '') {
-            $this->redirect("/views/auth/register.php?erreur=champs_invalides&role={$role}");
-        }
-
-        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $this->redirect("/views/auth/register.php?erreur=email_invalide&role={$role}");
-        }
-
-        if ($motDePasse !== $motDePasse2) {
-            $this->redirect("/views/auth/register.php?erreur=mots_de_passe_differents&role={$role}");
-        }
-
-        if (User::emailOuNomUtilisateurExiste($email, $nomUtilisateur)) {
-            $this->redirect("/views/auth/register.php?erreur=deja_utilise&role={$role}");
-        }
-
-        try {
-            if ($role === 'etudiant') {
-                $dateNaissance = $this->post('dateNaissance', '');
-                $lieuNaissance = trim($this->post('lieuNaissance', ''));
-                $sexe          = $this->post('sexe', '');
-
-                if ($dateNaissance === '' || $lieuNaissance === '' || $sexe === '') {
-                    $this->redirect("/views/auth/register.php?erreur=champs_invalides&role={$role}");
-                }
-
-                User::createEtudiant($nom, $prenom, $email, $telephone, $nomUtilisateur, $motDePasse, $dateNaissance, $lieuNaissance, $sexe);
-                $this->redirect('/views/auth/login.php?inscription=etudiant_ok');
-            }
-
-            if ($role === 'responsable') {
-                $specialite = trim($this->post('specialite', ''));
-                if ($specialite === '') {
-                    $this->redirect("/views/auth/register.php?erreur=champs_invalides&role={$role}");
-                }
-
-                User::createResponsable($nom, $prenom, $email, $telephone, $nomUtilisateur, $motDePasse, $specialite);
-                $this->redirect('/views/auth/login.php?inscription=en_attente');
-            }
-
-            if ($role === 'comptable') {
-                User::createComptable($nom, $prenom, $email, $telephone, $nomUtilisateur, $motDePasse);
-                $this->redirect('/views/auth/login.php?inscription=en_attente');
-            }
-        } catch (Exception $e) {
-            $this->redirect("/views/auth/register.php?erreur=technique&role={$role}");
-        }
-    }
-
     public function logout(): void
     {
         $_SESSION = [];
@@ -144,7 +75,6 @@ class AuthController extends BaseController
 $controller = new AuthController();
 
 Router::dispatch([
-    'login'    => [$controller, 'login'],
-    'register' => [$controller, 'register'],
-    'logout'   => [$controller, 'logout'],
+    'login'  => [$controller, 'login'],
+    'logout' => [$controller, 'logout'],
 ]);
