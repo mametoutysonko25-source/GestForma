@@ -5,25 +5,21 @@ $roleUtilisateur = $_SESSION['user']['role'] ?? $_SESSION['role_utilisateur'] ??
 
 $liensCommuns = [
     ['label' => 'Accueil', 'url' => '/index.php', 'icon' => '🏠'],
-    ['label' => 'Profil', 'url' => '/profil.php', 'icon' => '👤'],
 ];
 
 $liensParRole = [
     'etudiant' => [
+        ['label' => 'Tableau de bord', 'url' => '/views/etudiant/dashboard.php', 'icon' => '📊'],
         ['label' => 'Mon dossier', 'url' => '/views/etudiant/dossier.php', 'icon' => '📁'],
-        ['label' => 'Emploi du temps', 'url' => '/etudiant/planning.php', 'icon' => '🗓️'],
-        ['label' => 'Modules', 'url' => '/etudiant/modules.php', 'icon' => '📚'],
-        ['label' => 'Résultats', 'url' => '/etudiant/resultats.php', 'icon' => '📊'],
+        ['label' => 'Demande d’inscription', 'url' => '/views/etudiant/demande_inscription.php', 'icon' => '📝'],
+        ['label' => 'Situation financière', 'url' => '/views/etudiant/finance.php', 'icon' => '💳'],
     ],
     'formateur' => [
-        ['label' => 'Mes modules', 'url' => '/formateur/modules.php', 'icon' => '📚'],
-        ['label' => 'Mes séances', 'url' => '/formateur/seances.php', 'icon' => '🗓️'],
-        ['label' => 'Évaluations', 'url' => '/formateur/evaluations.php', 'icon' => '📝'],
+        ['label' => 'Tableau de bord', 'url' => '/views/formateur/dashboard.php', 'icon' => '📊'],
     ],
     'responsable' => [
-        ['label' => 'Étudiants', 'url' => '/responsable/etudiants.php', 'icon' => '🎓'],
-        ['label' => 'Formations', 'url' => '/responsable/formations.php', 'icon' => '📘'],
-        ['label' => 'Planning', 'url' => '/responsable/planning.php', 'icon' => '🗓️'],
+        ['label' => 'Tableau de bord', 'url' => '/views/responsable/dashboard.php', 'icon' => '📊'],
+        ['label' => 'Valider les inscriptions', 'url' => '/views/responsable/valider_inscriptions.php', 'icon' => '✅'],
     ],
     'comptable' => [
         ['label' => 'Paiements', 'url' => '/views/comptable/paiements.php', 'icon' => '💳'],
@@ -31,13 +27,10 @@ $liensParRole = [
         ['label' => 'Rémunérations', 'url' => '/views/comptable/remunerations.php', 'icon' => '💰'],
     ],
     'administrateur' => [
-        ['label' => 'Utilisateurs', 'url' => '/admin/utilisateurs.php', 'icon' => '👥'],
-        ['label' => 'Rôles & accès', 'url' => '/admin/roles.php', 'icon' => '🔐'],
-        ['label' => 'Journal', 'url' => '/admin/journal.php', 'icon' => '📜'],
+        ['label' => 'Tableau de bord', 'url' => '/views/administrateur/dashboard.php', 'icon' => '📊'],
     ],
     'directeur' => [
-        ['label' => 'Tableau de bord', 'url' => '/directeur/dashboard.php', 'icon' => '📈'],
-        ['label' => 'Personnel', 'url' => '/directeur/personnel.php', 'icon' => '👥'],
+        ['label' => 'Tableau de bord', 'url' => '/views/directeur/dashboard.php', 'icon' => '📈'],
     ],
 ];
 

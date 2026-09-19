@@ -1,17 +1,10 @@
 <?php
-session_start();
+require_once __DIR__ . '/../../controllers/helpers.php';
 require_once __DIR__ . '/../../controllers/PaiementController.php';
 
-if (!isset($_SESSION['idUtilisateur'])) {
-    header("Location: ../../index.php");
-    exit();
-}
+$currentUser = requireRole(['comptable']);
 
 $controller = new PaiementController();
-if (!$controller->estComptable($_SESSION['idUtilisateur'])) {
-    http_response_code(403);
-    exit('Accès réservé au comptable.');
-}
 $message = "";
 $erreur = "";
 $inscription = null;

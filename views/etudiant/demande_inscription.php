@@ -1,11 +1,8 @@
 <?php
-session_start();
+require_once __DIR__ . '/../../controllers/helpers.php';
 require_once __DIR__ . '/../../controllers/InscriptionController.php';
 
-if (!isset($_SESSION['idUtilisateur'])) {
-    header("Location: ../../index.php");
-    exit();
-}
+$currentUser = requireRole(['etudiant']);
 
 $controller = new InscriptionController();
 $message = "";
@@ -14,7 +11,7 @@ $erreur = "";
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $idNiveau = filter_input(INPUT_POST, 'idNiveau', FILTER_VALIDATE_INT);
     $anneeScolaire = trim($_POST['anneeScolaire'] ?? '');
-    $idEtudiant = $_SESSION['idUtilisateur'];
+    $idEtudiant = $currentUser['id'];
 
     if (!$idNiveau || !preg_match('/^\d{4}-\d{4}$/', $anneeScolaire)) {
         $erreur = "Veuillez sélectionner un niveau et une année scolaire valides.";

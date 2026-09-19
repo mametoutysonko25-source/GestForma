@@ -1,14 +1,11 @@
 <?php
-session_start();
+require_once __DIR__ . '/../../controllers/helpers.php';
 require_once __DIR__ . '/../../controllers/InscriptionController.php';
 
-if (!isset($_SESSION['idUtilisateur'])) {
-    header("Location: ../../index.php");
-    exit();
-}
+$currentUser = requireRole(['etudiant']);
 
 $controller = new InscriptionController();
-$inscription = $controller->getEtatInscription($_SESSION['idUtilisateur']);
+$inscription = $controller->getEtatInscription($currentUser['id']);
 ?>
 
 <!DOCTYPE html>

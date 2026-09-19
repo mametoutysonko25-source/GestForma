@@ -8,33 +8,16 @@ $menuParRole = [
     'etudiant' => [
         ['label' => 'Tableau de bord', 'url' => '/views/etudiant/dashboard.php', 'icon' => '📊'],
         ['label' => 'Mon dossier', 'url' => '/views/etudiant/dossier.php', 'icon' => '📁'],
-        ['label' => 'Emploi du temps', 'url' => '/etudiant/planning.php', 'icon' => '🗓️'],
-        ['label' => 'Modules', 'url' => '/etudiant/modules.php', 'icon' => '📚'],
-        ['label' => 'Supports de cours', 'url' => '/etudiant/supports.php', 'icon' => '📄'],
-        ['label' => 'Évaluations', 'url' => '/etudiant/evaluations.php', 'icon' => '📝'],
-        ['label' => 'Dépôt de travail', 'url' => '/etudiant/depot.php', 'icon' => '📤'],
-        ['label' => 'Résultats', 'url' => '/etudiant/resultats.php', 'icon' => '🏆'],
-        ['label' => 'Situation financière', 'url' => '/etudiant/finance.php', 'icon' => '💳'],
+        ['label' => 'Demande d’inscription', 'url' => '/views/etudiant/demande_inscription.php', 'icon' => '📝'],
+        ['label' => 'État de l’inscription', 'url' => '/views/etudiant/etat_inscription.php', 'icon' => '📋'],
+        ['label' => 'Situation financière', 'url' => '/views/etudiant/finance.php', 'icon' => '💳'],
     ],
     'formateur' => [
-        ['label' => 'Mes modules', 'url' => '/formateur/modules.php', 'icon' => '📚'],
-        ['label' => 'Mes séances', 'url' => '/formateur/seances.php', 'icon' => '🗓️'],
-        ['label' => 'Feuille d\'appel', 'url' => '/formateur/appel.php', 'icon' => '✅'],
-        ['label' => 'Évaluations', 'url' => '/formateur/evaluations.php', 'icon' => '📝'],
-        ['label' => 'Travaux à corriger', 'url' => '/formateur/correction.php', 'icon' => '📑'],
-        ['label' => 'Saisie des notes', 'url' => '/formateur/notes.php', 'icon' => '✏️'],
-        ['label' => 'Rémunération', 'url' => '/formateur/remuneration.php', 'icon' => '💰'],
+        ['label' => 'Tableau de bord', 'url' => '/views/formateur/dashboard.php', 'icon' => '📊'],
     ],
     'responsable' => [
-        ['label' => 'Étudiants', 'url' => '/responsable/etudiants.php', 'icon' => '🎓'],
-        ['label' => 'Inscriptions', 'url' => '/responsable/inscriptions.php', 'icon' => '📥'],
-        ['label' => 'Formations', 'url' => '/responsable/formations.php', 'icon' => '📘'],
-        ['label' => 'Niveaux & semestres', 'url' => '/responsable/niveaux.php', 'icon' => '🎯'],
-        ['label' => 'Modules', 'url' => '/responsable/modules.php', 'icon' => '📚'],
-        ['label' => 'Affectations', 'url' => '/responsable/affectation.php', 'icon' => '👥'],
-        ['label' => 'Planning', 'url' => '/responsable/planning.php', 'icon' => '🗓️'],
-        ['label' => 'Présences', 'url' => '/responsable/presences.php', 'icon' => '✅'],
-        ['label' => 'Résultats', 'url' => '/responsable/resultats.php', 'icon' => '📊'],
+        ['label' => 'Tableau de bord', 'url' => '/views/responsable/dashboard.php', 'icon' => '📊'],
+        ['label' => 'Valider les inscriptions', 'url' => '/views/responsable/valider_inscriptions.php', 'icon' => '✅'],
     ],
 
     'comptable' => [
@@ -44,16 +27,10 @@ $menuParRole = [
         ['label' => 'Rémunérations', 'url' => '/views/comptable/remunerations.php', 'icon' => '💰'],
     ],
     'administrateur' => [
-        ['label' => 'Utilisateurs', 'url' => '/admin/utilisateurs.php', 'icon' => '👥'],
-        ['label' => 'Rôles & accès', 'url' => '/admin/roles.php', 'icon' => '🔐'],
-        ['label' => 'Paramètres', 'url' => '/admin/parametres.php', 'icon' => '⚙️'],
-        ['label' => 'Journal des actions', 'url' => '/admin/journal.php', 'icon' => '📜'],
+        ['label' => 'Tableau de bord', 'url' => '/views/administrateur/dashboard.php', 'icon' => '📊'],
     ],
     'directeur' => [
-        ['label' => 'Tableau de bord', 'url' => '/directeur/dashboard.php', 'icon' => '📈'],
-        ['label' => 'Indicateurs', 'url' => '/directeur/indicateurs.php', 'icon' => '📊'],
-        ['label' => 'Personnel', 'url' => '/directeur/personnel.php', 'icon' => '👥'],
-        ['label' => 'Infos du centre', 'url' => '/directeur/infos.php', 'icon' => 'ℹ️'],
+        ['label' => 'Tableau de bord', 'url' => '/views/directeur/dashboard.php', 'icon' => '📈'],
     ],
 ];
 
