@@ -47,5 +47,13 @@ class InscriptionController {
         }
         return $this->inscriptionModel->getInscriptionByDossier($dossier['idDossier']);
     }
+
+    public function estResponsablePedagogique($idUtilisateur) {
+        $stmt = $this->db->prepare(
+            "SELECT 1 FROM RESPONSABLE_PEDAGOGIQUE WHERE idUtilisateur = :idUtilisateur"
+        );
+        $stmt->execute([':idUtilisateur' => $idUtilisateur]);
+        return (bool) $stmt->fetchColumn();
+    }
 }
 ?>
