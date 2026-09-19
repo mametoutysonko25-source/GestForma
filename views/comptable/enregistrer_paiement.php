@@ -16,23 +16,12 @@ $message = "";
 $erreur = "";
 $inscription = null;
 
-<<<<<<< Updated upstream
-if (isset($_GET['idInscription'])) {
-    $inscriptions = $controller->getInscriptionsValidees();
-    foreach ($inscriptions as $ins) {
-        if ($ins['idInscription'] == $_GET['idInscription']) {
-            $inscription = $ins;
-            break;
-        }
-    }
-=======
 $idInscription = filter_input(INPUT_GET, 'idInscription', FILTER_VALIDATE_INT);
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $idInscription = filter_input(INPUT_POST, 'idInscription', FILTER_VALIDATE_INT);
 }
 if ($idInscription) {
     $inscription = $controller->getInscriptionValideeById($idInscription);
->>>>>>> Stashed changes
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
