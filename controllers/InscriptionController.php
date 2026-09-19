@@ -1,7 +1,7 @@
 <?php
-require_once '../config/database.php';
-require_once '../models/DossierEtudiant.php';
-require_once '../models/Inscription.php';
+require_once __DIR__ . '/../config/database.php';
+require_once __DIR__ . '/../models/DossierEtudiant.php';
+require_once __DIR__ . '/../models/Inscription.php';
 
 class InscriptionController {
     private $db;

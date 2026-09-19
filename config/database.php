@@ -1,23 +1,30 @@
 <?php
-$serveur = "localhost";
-$utilisateur = "root";
-$motDePasse = "";
-$base = "centreformation";
 
-try {
-    $dsn = "mysql:host=$serveur;dbname=$base;charset=utf8mb4";
-    $connexion = new PDO($dsn, $utilisateur, $motDePasse, [
-        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-    ]);
+function database(): PDO
+{
+    static $connexion;
 
-    echo "Connexion à la base réussie.<br>";
+    if ($connexion instanceof PDO) {
+        return $connexion;
+    }
 
-    $requete = "SELECT COUNT(*) AS total FROM utilisateurs";
-    $total = $connexion->query($requete)->fetchColumn();
+    $connexion = new PDO(
+        'mysql:host=localhost;dbname=centreformation;charset=utf8mb4',
+        'root',
+        '',
+        [
+            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+        ]
+    );
 
-    echo "Nombre d'utilisateurs : " . $total;
-} catch (PDOException $exception) {
-    die("Échec de la connexion ou de la requête : " . $exception->getMessage());
+    return $connexion;
 }
-?>
+
+class Database
+{
+    public function getConnection(): PDO
+    {
+        return database();
+    }
+}

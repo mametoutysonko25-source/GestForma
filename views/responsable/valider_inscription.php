@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once '../../controllers/InscriptionController.php';
+require_once __DIR__ . '/../../controllers/InscriptionController.php';
 
 if (!isset($_SESSION['idUtilisateur'])) {
     header("Location: ../../index.php");
