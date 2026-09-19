@@ -1,11 +1,14 @@
 <?php
-require_once __DIR__ . '/../../controllers/helpers.php';
-require_once __DIR__ . '/../../controllers/InscriptionController.php';
+session_start();
+require_once '../../controllers/InscriptionController.php';
 
-$currentUser = requireRole(['etudiant']);
+if (!isset($_SESSION['idUtilisateur'])) {
+    header("Location: ../../index.php");
+    exit();
+}
 
 $controller = new InscriptionController();
-$inscription = $controller->getEtatInscription($currentUser['id']);
+$inscription = $controller->getEtatInscription($_SESSION['idUtilisateur']);
 ?>
 
 <!DOCTYPE html>
@@ -45,6 +48,5 @@ $inscription = $controller->getEtatInscription($currentUser['id']);
     <?php endif; ?>
 
     <p><a href="demande_inscription.php">Nouvelle demande</a></p>
-<p><a href="../../index.php?logout=1">Se déconnecter / changer de rôle</a></p>
 </body>
 </html>

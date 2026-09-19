@@ -1,37 +1,43 @@
 <?php
-require_once __DIR__ . '/../../controllers/helpers.php';
-require_once __DIR__ . '/../../controllers/PaiementController.php';
+session_start();
+require_once '../../controllers/PaiementController.php';
 
-$currentUser = requireRole(['comptable']);
+if (!isset($_SESSION['idUtilisateur'])) {
+    header("Location: ../../index.php");
+    exit();
+}
 
 $controller = new PaiementController();
 $message = "";
 $erreur = "";
 $inscription = null;
 
-$idInscription = filter_input(INPUT_GET, 'idInscription', FILTER_VALIDATE_INT);
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $idInscription = filter_input(INPUT_POST, 'idInscription', FILTER_VALIDATE_INT);
-}
-if ($idInscription) {
-    $inscription = $controller->getInscriptionValideeById($idInscription);
+// Récupérer l'inscription si idInscription est fourni
+if (isset($_GET['idInscription'])) {
+    $inscriptions = $controller->getInscriptionsValidees();
+    foreach ($inscriptions as $ins) {
+        if ($ins['idInscription'] == $_GET['idInscription']) {
+            $inscription = $ins;
+            break;
+        }
+    }
 }
 
+// Traitement du formulaire
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $montant = filter_input(INPUT_POST, 'montant', FILTER_VALIDATE_FLOAT);
-    $modePaiement = trim($_POST['modePaiement'] ?? '');
-    $reference = trim($_POST['reference'] ?? '');
+    $montant = $_POST['montant'];
+    $modePaiement = $_POST['modePaiement'];
+    $reference = $_POST['reference'];
+    $idInscription = $_POST['idInscription'];
 
-    if (!$inscription || $montant === false || $montant <= 0 || $modePaiement === '') {
-        $erreur = "Veuillez sélectionner une inscription validée et saisir un montant positif.";
-    } elseif ($controller->enregistrerPaiement($montant, $modePaiement, $reference ?: null, $idInscription)) {
+    if ($controller->enregistrerPaiement($montant, $modePaiement, $reference, $idInscription)) {
         $message = "Paiement enregistré avec succès.";
-        $inscription = $controller->getInscriptionValideeById($idInscription);
     } else {
         $erreur = "Une erreur est survenue lors de l'enregistrement du paiement.";
     }
 }
 
+// Récupérer l'historique des paiements
 $paiements = [];
 $totalPaye = 0;
 if ($inscription) {
@@ -89,7 +95,7 @@ if ($inscription) {
                 <label for="idInscription">Inscription :</label>
                 <select id="idInscription" name="idInscription" required>
                     <option value="">Sélectionner une inscription</option>
-                    <?php
+                    <?php 
                     $inscriptions = $controller->getInscriptionsValidees();
                     foreach ($inscriptions as $ins): 
                     ?>
@@ -151,6 +157,5 @@ if ($inscription) {
     <?php endif; ?>
 
     <p><a href="paiements_etudiants.php">Retour à la liste</a></p>
-<p><a href="../../index.php?logout=1">Se déconnecter / changer de rôle</a></p>
 </body>
 </html>

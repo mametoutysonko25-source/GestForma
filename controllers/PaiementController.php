@@ -1,6 +1,6 @@
 <?php
-require_once __DIR__ . '/../config/database.php';
-require_once __DIR__ . '/../models/Paiement.php';
+require_once '../config/database.php';
+require_once '../models/Paiement.php';
 
 class PaiementController {
     private $db;
@@ -30,16 +30,6 @@ class PaiementController {
 
     public function getAllPaiements() {
         return $this->paiementModel->getAllPaiements();
-    }
-
-    public function getInscriptionValideeById($idInscription) {
-        return $this->paiementModel->getInscriptionValideeById($idInscription);
-    }
-
-    public function estComptable($idUtilisateur) {
-        $stmt = $this->db->prepare("SELECT 1 FROM COMPTABLE WHERE idUtilisateur = :idUtilisateur");
-        $stmt->execute([':idUtilisateur' => $idUtilisateur]);
-        return (bool) $stmt->fetchColumn();
     }
 }
 ?>

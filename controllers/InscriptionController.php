@@ -1,7 +1,7 @@
 <?php
-require_once __DIR__ . '/../config/database.php';
-require_once __DIR__ . '/../models/DossierEtudiant.php';
-require_once __DIR__ . '/../models/Inscription.php';
+require_once '../config/database.php';
+require_once '../models/DossierEtudiant.php';
+require_once '../models/Inscription.php';
 
 class InscriptionController {
     private $db;
@@ -16,15 +16,18 @@ class InscriptionController {
     }
 
     public function demanderInscription($idEtudiant, $idNiveau, $anneeScolaire) {
+        // Vérifier si un dossier existe déjà
         $dossier = $this->dossierModel->getDossierByEtudiant($idEtudiant);
         
         if (!$dossier) {
+            // Créer un nouveau dossier
             $this->dossierModel->creerDossier($idEtudiant, $anneeScolaire);
             $idDossier = $this->dossierModel->getIdDossier();
         } else {
             $idDossier = $dossier['idDossier'];
         }
 
+        // Créer la demande d'inscription
         return $this->inscriptionModel->demanderInscription($idDossier, $idNiveau);
     }
 
@@ -46,14 +49,6 @@ class InscriptionController {
             return null;
         }
         return $this->inscriptionModel->getInscriptionByDossier($dossier['idDossier']);
-    }
-
-    public function estResponsablePedagogique($idUtilisateur) {
-        $stmt = $this->db->prepare(
-            "SELECT 1 FROM RESPONSABLE_PEDAGOGIQUE WHERE idUtilisateur = :idUtilisateur"
-        );
-        $stmt->execute([':idUtilisateur' => $idUtilisateur]);
-        return (bool) $stmt->fetchColumn();
     }
 }
 ?>
