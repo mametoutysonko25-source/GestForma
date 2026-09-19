@@ -7,7 +7,7 @@ $pageActuelle = basename($_SERVER['PHP_SELF'] ?? '');
 $menuParRole = [
     'etudiant' => [
         ['label' => 'Tableau de bord', 'url' => '/views/etudiant/dashboard.php', 'icon' => '📊'],
-        ['label' => 'Mon dossier', 'url' => '/etudiant/dossier.php', 'icon' => '📁'],
+        ['label' => 'Mon dossier', 'url' => '/views/etudiant/dossier.php', 'icon' => '📁'],
         ['label' => 'Emploi du temps', 'url' => '/etudiant/planning.php', 'icon' => '🗓️'],
         ['label' => 'Modules', 'url' => '/etudiant/modules.php', 'icon' => '📚'],
         ['label' => 'Supports de cours', 'url' => '/etudiant/supports.php', 'icon' => '📄'],
@@ -38,10 +38,10 @@ $menuParRole = [
     ],
 
     'comptable' => [
-        ['label' => 'Paiements étudiants', 'url' => '/comptable/paiements.php', 'icon' => '💳'],
-        ['label' => 'Situations financières', 'url' => '/comptable/situations.php', 'icon' => '📊'],
-        ['label' => 'Impayés', 'url' => '/comptable/impayes.php', 'icon' => '⚠️'],
-        ['label' => 'Rémunérations', 'url' => '/comptable/remunerations.php', 'icon' => '💰'],
+        ['label' => 'Paiements étudiants', 'url' => '/views/comptable/paiements.php', 'icon' => '💳'],
+        ['label' => 'Situations financières', 'url' => '/views/comptable/situations.php', 'icon' => '📊'],
+        ['label' => 'Impayés', 'url' => '/views/comptable/impayes.php', 'icon' => '⚠️'],
+        ['label' => 'Rémunérations', 'url' => '/views/comptable/remunerations.php', 'icon' => '💰'],
     ],
     'administrateur' => [
         ['label' => 'Utilisateurs', 'url' => '/admin/utilisateurs.php', 'icon' => '👥'],

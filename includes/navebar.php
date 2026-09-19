@@ -10,7 +10,7 @@ $liensCommuns = [
 
 $liensParRole = [
     'etudiant' => [
-        ['label' => 'Mon dossier', 'url' => '/etudiant/dossier.php', 'icon' => '📁'],
+        ['label' => 'Mon dossier', 'url' => '/views/etudiant/dossier.php', 'icon' => '📁'],
         ['label' => 'Emploi du temps', 'url' => '/etudiant/planning.php', 'icon' => '🗓️'],
         ['label' => 'Modules', 'url' => '/etudiant/modules.php', 'icon' => '📚'],
         ['label' => 'Résultats', 'url' => '/etudiant/resultats.php', 'icon' => '📊'],
@@ -26,9 +26,9 @@ $liensParRole = [
         ['label' => 'Planning', 'url' => '/responsable/planning.php', 'icon' => '🗓️'],
     ],
     'comptable' => [
-        ['label' => 'Paiements', 'url' => '/comptable/paiements.php', 'icon' => '💳'],
-        ['label' => 'Situations', 'url' => '/comptable/situations.php', 'icon' => '📊'],
-        ['label' => 'Rémunérations', 'url' => '/comptable/remunerations.php', 'icon' => '💰'],
+        ['label' => 'Paiements', 'url' => '/views/comptable/paiements.php', 'icon' => '💳'],
+        ['label' => 'Situations', 'url' => '/views/comptable/situations.php', 'icon' => '📊'],
+        ['label' => 'Rémunérations', 'url' => '/views/comptable/remunerations.php', 'icon' => '💰'],
     ],
     'administrateur' => [
         ['label' => 'Utilisateurs', 'url' => '/admin/utilisateurs.php', 'icon' => '👥'],

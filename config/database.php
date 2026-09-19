@@ -17,3 +17,11 @@ function database(): PDO
 
     return $connexion;
 }
+
+class Database
+{
+    public function getConnection(): PDO
+    {
+        return database();
+    }
+}
