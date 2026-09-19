@@ -14,15 +14,6 @@ class Inscription {
     }
 
     public function demanderInscription($idDossier, $idNiveau) {
-        $verification = $this->conn->prepare(
-            "SELECT COUNT(*) FROM " . $this->table . "
-             WHERE idDossier = :idDossier AND statut IN ('EN_ATTENTE', 'VALIDEE')"
-        );
-        $verification->execute([':idDossier' => $idDossier]);
-        if ((int) $verification->fetchColumn() > 0) {
-            return false;
-        }
-
         $query = "INSERT INTO " . $this->table . " (dateInscription, statut, idDossier, idNiveau) 
                   VALUES (CURDATE(), :statut, :idDossier, :idNiveau)";
         $stmt = $this->conn->prepare($query);
@@ -50,19 +41,17 @@ class Inscription {
     }
 
     public function validerInscription($idInscription) {
-        $query = "UPDATE " . $this->table . " SET statut = 'VALIDEE'
-                  WHERE idInscription = :idInscription AND statut = 'EN_ATTENTE'";
+        $query = "UPDATE " . $this->table . " SET statut = 'VALIDEE' WHERE idInscription = :idInscription";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(":idInscription", $idInscription);
-        return $stmt->execute() && $stmt->rowCount() === 1;
+        return $stmt->execute();
     }
 
     public function refuserInscription($idInscription) {
-        $query = "UPDATE " . $this->table . " SET statut = 'REFUSEE'
-                  WHERE idInscription = :idInscription AND statut = 'EN_ATTENTE'";
+        $query = "UPDATE " . $this->table . " SET statut = 'REFUSEE' WHERE idInscription = :idInscription";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(":idInscription", $idInscription);
-        return $stmt->execute() && $stmt->rowCount() === 1;
+        return $stmt->execute();
     }
 
     public function getInscriptionByDossier($idDossier) {
