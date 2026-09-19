@@ -62,6 +62,7 @@ class AuthController extends BaseController
     public function logout(): void
     {
         $_SESSION = [];
+        unset($_SESSION['user'], $_SESSION['idUtilisateur'], $_SESSION['nom_utilisateur'], $_SESSION['role_utilisateur']);
         if (ini_get('session.use_cookies')) {
             $params = session_get_cookie_params();
             setcookie(session_name(), '', time() - 42000, $params['path']);

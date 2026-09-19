@@ -50,11 +50,10 @@ $showSidebar = $showSidebar ?? true;
                     <img src="/assets/images/test.png" alt="Avatar" class="gf-header__avatar">
                 </button>
                 <ul class="gf-header__dropdown-menu" id="user-menu">
-                    <li><a href="/profil.php">Mon profil</a></li>
-                    <li><a href="/parametres.php">Paramètres</a></li>
                     <li><a href="/controllers/AuthController.php?action=logout">Déconnexion</a></li>
                 </ul>
             </div>
+            <a class="gf-header__logout" href="/controllers/AuthController.php?action=logout">Déconnexion</a>
         </div>
     </header>
 
