@@ -16,7 +16,12 @@ class InscriptionController {
     }
 
     public function demanderInscription($idEtudiant, $idNiveau, $anneeScolaire) {
+<<<<<<< Updated upstream
         $dossier = $this->dossierModel->getDossierByEtudiant($idEtudiant);
+=======
+        // Vérifier si un dossier existe déjà
+        $dossier = $this->dossierModel->getDossierByEtudiantAndAnnee($idEtudiant, $anneeScolaire);
+>>>>>>> Stashed changes
         
         if (!$dossier) {
             $this->dossierModel->creerDossier($idEtudiant, $anneeScolaire);
@@ -46,6 +51,14 @@ class InscriptionController {
             return null;
         }
         return $this->inscriptionModel->getInscriptionByDossier($dossier['idDossier']);
+    }
+
+    public function estResponsablePedagogique($idUtilisateur) {
+        $stmt = $this->db->prepare(
+            "SELECT 1 FROM RESPONSABLE_PEDAGOGIQUE WHERE idUtilisateur = :idUtilisateur"
+        );
+        $stmt->execute([':idUtilisateur' => $idUtilisateur]);
+        return (bool) $stmt->fetchColumn();
     }
 }
 ?>

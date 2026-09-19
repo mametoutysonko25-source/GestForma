@@ -8,6 +8,10 @@ if (!isset($_SESSION['idUtilisateur'])) {
 }
 
 $controller = new PaiementController();
+if (!$controller->estComptable($_SESSION['idUtilisateur'])) {
+    http_response_code(403);
+    exit('Accès réservé au comptable.');
+}
 $inscriptions = $controller->getInscriptionsValidees();
 ?>
 

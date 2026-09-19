@@ -8,10 +8,15 @@ if (!isset($_SESSION['idUtilisateur'])) {
 }
 
 $controller = new PaiementController();
+if (!$controller->estComptable($_SESSION['idUtilisateur'])) {
+    http_response_code(403);
+    exit('Accès réservé au comptable.');
+}
 $message = "";
 $erreur = "";
 $inscription = null;
 
+<<<<<<< Updated upstream
 if (isset($_GET['idInscription'])) {
     $inscriptions = $controller->getInscriptionsValidees();
     foreach ($inscriptions as $ins) {
@@ -20,16 +25,26 @@ if (isset($_GET['idInscription'])) {
             break;
         }
     }
+=======
+$idInscription = filter_input(INPUT_GET, 'idInscription', FILTER_VALIDATE_INT);
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $idInscription = filter_input(INPUT_POST, 'idInscription', FILTER_VALIDATE_INT);
+}
+if ($idInscription) {
+    $inscription = $controller->getInscriptionValideeById($idInscription);
+>>>>>>> Stashed changes
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $montant = $_POST['montant'];
-    $modePaiement = $_POST['modePaiement'];
-    $reference = $_POST['reference'];
-    $idInscription = $_POST['idInscription'];
+    $montant = filter_input(INPUT_POST, 'montant', FILTER_VALIDATE_FLOAT);
+    $modePaiement = trim($_POST['modePaiement'] ?? '');
+    $reference = trim($_POST['reference'] ?? '');
 
-    if ($controller->enregistrerPaiement($montant, $modePaiement, $reference, $idInscription)) {
+    if (!$inscription || $montant === false || $montant <= 0 || $modePaiement === '') {
+        $erreur = "Veuillez sélectionner une inscription validée et saisir un montant positif.";
+    } elseif ($controller->enregistrerPaiement($montant, $modePaiement, $reference ?: null, $idInscription)) {
         $message = "Paiement enregistré avec succès.";
+        $inscription = $controller->getInscriptionValideeById($idInscription);
     } else {
         $erreur = "Une erreur est survenue lors de l'enregistrement du paiement.";
     }
@@ -92,7 +107,7 @@ if ($inscription) {
                 <label for="idInscription">Inscription :</label>
                 <select id="idInscription" name="idInscription" required>
                     <option value="">Sélectionner une inscription</option>
-                    <?php 
+                    <?php
                     $inscriptions = $controller->getInscriptionsValidees();
                     foreach ($inscriptions as $ins): 
                     ?>

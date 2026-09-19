@@ -12,14 +12,16 @@ $message = "";
 $erreur = "";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $idNiveau = $_POST['idNiveau'];
-    $anneeScolaire = $_POST['anneeScolaire'];
+    $idNiveau = filter_input(INPUT_POST, 'idNiveau', FILTER_VALIDATE_INT);
+    $anneeScolaire = trim($_POST['anneeScolaire'] ?? '');
     $idEtudiant = $_SESSION['idUtilisateur'];
 
-    if ($controller->demanderInscription($idEtudiant, $idNiveau, $anneeScolaire)) {
+    if (!$idNiveau || !preg_match('/^\d{4}-\d{4}$/', $anneeScolaire)) {
+        $erreur = "Veuillez sélectionner un niveau et une année scolaire valides.";
+    } elseif ($controller->demanderInscription($idEtudiant, $idNiveau, $anneeScolaire)) {
         $message = "Votre demande d'inscription a été soumise avec succès.";
     } else {
-        $erreur = "Une erreur est survenue lors de la demande d'inscription.";
+        $erreur = "Une demande est déjà en attente ou validée pour ce dossier.";
     }
 }
 ?>

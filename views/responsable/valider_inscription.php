@@ -8,19 +8,30 @@ if (!isset($_SESSION['idUtilisateur'])) {
 }
 
 $controller = new InscriptionController();
+if (!$controller->estResponsablePedagogique($_SESSION['idUtilisateur'])) {
+    http_response_code(403);
+    exit('Accès réservé au responsable pédagogique.');
+}
 $message = "";
+$erreur = "";
 
 // Traitement de la validation/refus
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
-    $idInscription = $_POST['idInscription'];
+    $idInscription = filter_input(INPUT_POST, 'idInscription', FILTER_VALIDATE_INT);
     
-    if ($_POST['action'] === 'valider') {
+    if (!$idInscription) {
+        $erreur = "Inscription invalide.";
+    } elseif ($_POST['action'] === 'valider') {
         if ($controller->validerInscription($idInscription)) {
             $message = "Inscription validée avec succès.";
+        } else {
+            $erreur = "Cette inscription n'est plus en attente.";
         }
     } elseif ($_POST['action'] === 'refuser') {
         if ($controller->refuserInscription($idInscription)) {
             $message = "Inscription refusée.";
+        } else {
+            $erreur = "Cette inscription n'est plus en attente.";
         }
     }
 }
@@ -48,7 +59,10 @@ $inscriptions = $controller->getInscriptionsEnAttente();
     <h1>Validation des inscriptions</h1>
 
     <?php if ($message): ?>
-        <div class="message"><?php echo $message; ?></div>
+        <div class="message"><?php echo htmlspecialchars($message, ENT_QUOTES, 'UTF-8'); ?></div>
+    <?php endif; ?>
+    <?php if ($erreur): ?>
+        <div class="message" style="color:red"><?php echo htmlspecialchars($erreur, ENT_QUOTES, 'UTF-8'); ?></div>
     <?php endif; ?>
 
     <?php if (count($inscriptions) > 0): ?>
@@ -67,12 +81,12 @@ $inscriptions = $controller->getInscriptionsEnAttente();
             <tbody>
                 <?php foreach ($inscriptions as $ins): ?>
                     <tr>
-                        <td><?php echo $ins['nom'] . ' ' . $ins['prenom']; ?></td>
-                        <td><?php echo $ins['matricule']; ?></td>
-                        <td><?php echo $ins['email']; ?></td>
-                        <td><?php echo $ins['niveau_libelle']; ?></td>
-                        <td><?php echo $ins['anneeScolaire']; ?></td>
-                        <td><?php echo $ins['dateInscription']; ?></td>
+                        <td><?php echo htmlspecialchars($ins['nom'] . ' ' . $ins['prenom'], ENT_QUOTES, 'UTF-8'); ?></td>
+                        <td><?php echo htmlspecialchars($ins['matricule'], ENT_QUOTES, 'UTF-8'); ?></td>
+                        <td><?php echo htmlspecialchars($ins['email'], ENT_QUOTES, 'UTF-8'); ?></td>
+                        <td><?php echo htmlspecialchars($ins['niveau_libelle'], ENT_QUOTES, 'UTF-8'); ?></td>
+                        <td><?php echo htmlspecialchars($ins['anneeScolaire'], ENT_QUOTES, 'UTF-8'); ?></td>
+                        <td><?php echo htmlspecialchars($ins['dateInscription'], ENT_QUOTES, 'UTF-8'); ?></td>
                         <td>
                             <form method="POST" style="display:inline;">
                                 <input type="hidden" name="idInscription" value="<?php echo $ins['idInscription']; ?>">

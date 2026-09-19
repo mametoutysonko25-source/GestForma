@@ -31,6 +31,18 @@ class DossierEtudiant {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
+    public function getDossierByEtudiantAndAnnee($idEtudiant, $anneeScolaire) {
+        $query = "SELECT * FROM " . $this->table . "
+                  WHERE idEtudiant = :idEtudiant AND anneeScolaire = :anneeScolaire
+                  LIMIT 1";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute([
+            ':idEtudiant' => $idEtudiant,
+            ':anneeScolaire' => $anneeScolaire,
+        ]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
     public function getIdDossier() {
         return $this->conn->lastInsertId();
     }
