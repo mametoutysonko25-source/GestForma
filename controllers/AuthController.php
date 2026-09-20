@@ -14,7 +14,7 @@ class AuthController extends BaseController
 
         $rolesValides = array_keys(User::ROLE_TABLES);
         if ($email === '' || $motDePasse === '' || !in_array($role, $rolesValides, true)) {
-                $this->redirect('/views/auth/login.php?erreur=champs_invalides');
+                $this->redirect('views/auth/login.php?erreur=champs_invalides');
         }
 
         try {
@@ -23,15 +23,15 @@ class AuthController extends BaseController
             $erreur = (int) $exception->getCode() === 2002
                 ? 'serveur_bdd_arrete'
                 : 'connexion_indisponible';
-            $this->redirect('/views/auth/login.php?erreur=' . $erreur);
+            $this->redirect('views/auth/login.php?erreur=' . $erreur);
         }
 
         if (!$user || !User::verifyPassword($motDePasse, $user['motDePasseHash'])) {
-                $this->redirect('/views/auth/login.php?erreur=identifiants_incorrects');
+                $this->redirect('views/auth/login.php?erreur=identifiants_incorrects');
         }
 
         if (!User::estActif($user)) {
-                $this->redirect('/views/auth/login.php?erreur=compte_desactive');
+                $this->redirect('views/auth/login.php?erreur=compte_desactive');
         }
 
         // Connexion réussie.
@@ -42,7 +42,7 @@ class AuthController extends BaseController
             $erreur = (int) $exception->getCode() === 2002
                 ? 'serveur_bdd_arrete'
                 : 'connexion_indisponible';
-            $this->redirect('/views/auth/login.php?erreur=' . $erreur);
+            $this->redirect('views/auth/login.php?erreur=' . $erreur);
         }
 
         $_SESSION['user'] = [
@@ -56,7 +56,7 @@ class AuthController extends BaseController
         $_SESSION['nom_utilisateur'] = $_SESSION['user']['nom'];
         $_SESSION['role_utilisateur'] = $role;
 
-        $this->redirect(DASHBOARD_PAR_ROLE[$role] ?? '/index.php');
+        $this->redirect(DASHBOARD_PAR_ROLE[$role] ?? 'index.php');
     }
 
     public function logout(): void
@@ -67,7 +67,7 @@ class AuthController extends BaseController
             setcookie(session_name(), '', time() - 42000, $params['path']);
         }
         session_destroy();
-        $this->redirect('/views/auth/login.php');
+        $this->redirect('views/auth/login.php');
     }
 }
 

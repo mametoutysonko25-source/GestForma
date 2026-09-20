@@ -2,10 +2,12 @@
 // includes/header.php
 // Header commun/générique - GestForm
 require_once __DIR__ . '/../config/session.php';
+require_once __DIR__ . '/../config/app.php';
 $nomUtilisateur = $_SESSION['nom_utilisateur'] ?? 'Utilisateur';
 $roleUtilisateur = $_SESSION['role_utilisateur'] ?? 'Invité';
 $nombreNotifications = $_SESSION['nb_notifications'] ?? 0;
 $showSidebar = $showSidebar ?? true;
+$contentClass = $contentClass ?? '';
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -14,20 +16,23 @@ $showSidebar = $showSidebar ?? true;
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GestForm<?php echo isset($titrePage) ? ' - ' . htmlspecialchars($titrePage) : ''; ?></title>
-    <link rel="stylesheet" href="/assets/css/style.css">
-    <link rel="stylesheet" href="/assets/css/header.css">
-    <link rel="stylesheet" href="/assets/css/navebar.css">
-    <link rel="stylesheet" href="/assets/css/sidebar.css">
-    <link rel="stylesheet" href="/assets/css/footer.css">
-    <link rel="stylesheet" href="/assets/css/auth.css">
+    <link rel="stylesheet" href="<?php echo htmlspecialchars(BASE_URL . 'assets/css/style.css'); ?>">
+    <link rel="stylesheet" href="<?php echo htmlspecialchars(BASE_URL . 'assets/css/header.css'); ?>">
+    <link rel="stylesheet" href="<?php echo htmlspecialchars(BASE_URL . 'assets/css/navebar.css'); ?>">
+    <link rel="stylesheet" href="<?php echo htmlspecialchars(BASE_URL . 'assets/css/sidebar.css'); ?>">
+    <link rel="stylesheet" href="<?php echo htmlspecialchars(BASE_URL . 'assets/css/footer.css'); ?>">
+    <link rel="stylesheet" href="<?php echo htmlspecialchars(BASE_URL . 'assets/css/auth.css'); ?>">
+    <?php if ($contentClass === 'director-content'): ?>
+        <link rel="stylesheet" href="<?php echo htmlspecialchars(BASE_URL . 'assets/css/director-content.css'); ?>">
+    <?php endif; ?>
 </head>
 
 <body>
 
     <header class="gf-header">
         <div class="gf-header__left">
-            <a href="/" class="gf-header__logo">
-                <img src="/assets/images/test.png" alt="GestForm" class="gf-header__logo-img">
+            <a href="<?php echo htmlspecialchars(BASE_URL); ?>" class="gf-header__logo">
+                <img src="<?php echo htmlspecialchars(BASE_URL . 'assets/images/test.png'); ?>" alt="GestForm" class="gf-header__logo-img">
                 <span class="gf-header__logo-text">GestForm</span>
             </a>
         </div>
@@ -47,21 +52,21 @@ $showSidebar = $showSidebar ?? true;
 
             <div class="gf-header__dropdown">
                 <button class="gf-header__avatar-btn" id="btn-user-menu" aria-label="Menu utilisateur">
-                    <img src="/assets/images/test.png" alt="Avatar" class="gf-header__avatar">
+                    <img src="<?php echo htmlspecialchars(BASE_URL . 'assets/images/test.png'); ?>" alt="Avatar" class="gf-header__avatar">
                 </button>
                 <ul class="gf-header__dropdown-menu" id="user-menu">
-                    <li><a href="/profil.php">Mon profil</a></li>
-                    <li><a href="/parametres.php">Paramètres</a></li>
-                    <li><a href="/controllers/AuthController.php?action=logout">Déconnexion</a></li>
+                    <li><a href="<?php echo htmlspecialchars(BASE_URL . 'shared/profil.php'); ?>">Mon profil</a></li>
+                    <li><a href="<?php echo htmlspecialchars(BASE_URL . 'shared/parametres.php'); ?>">Paramètres</a></li>
+                    <li><a href="<?php echo htmlspecialchars(BASE_URL . 'controllers/AuthController.php?action=logout'); ?>">Déconnexion</a></li>
                 </ul>
             </div>
         </div>
     </header>
 
-    <script src="/assets/js/header.js"></script>
+    <script src="<?php echo htmlspecialchars(BASE_URL . 'assets/js/header.js'); ?>"></script>
     <?php if ($showSidebar): ?>
         <?php require __DIR__ . '/navebar.php'; ?>
         <div class="gf-layout">
             <?php require __DIR__ . '/sidebar.php'; ?>
-            <main class="gf-content">
+            <main class="gf-content <?= htmlspecialchars($contentClass) ?>">
     <?php endif; ?>

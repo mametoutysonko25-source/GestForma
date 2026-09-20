@@ -25,7 +25,7 @@ require __DIR__ . '/includes/header.php';
     <div class="card" style="width:280px;">
         <h3 style="margin-top:0;">Connexion</h3>
         <p style="font-size:13px; color:var(--muted);">Accédez à votre espace</p>
-        <a href="/views/auth/login.php" class="btn" style="display:block; text-align:center;">Se connecter</a>
+        <a href="<?php echo htmlspecialchars(BASE_URL . 'views/auth/login.php'); ?>" class="btn" style="display:block; text-align:center;">Se connecter</a>
     </div>
 </section>
 

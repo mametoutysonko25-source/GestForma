@@ -19,6 +19,6 @@ class Router
     public static function url(string $controllerFile, string $action, array $extraParams = []): string
     {
         $params = array_merge(['action' => $action], $extraParams);
-        return '/controllers/' . $controllerFile . '.php?' . http_build_query($params);
+        return BASE_URL . 'controllers/' . $controllerFile . '.php?' . http_build_query($params);
     }
 }

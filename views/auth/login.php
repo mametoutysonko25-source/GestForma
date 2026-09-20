@@ -39,15 +39,15 @@ $roles = [
                     'identifiants_incorrects' => 'E-mail, mot de passe ou rôle incorrect.',
                     'compte_desactive'      => 'Ce compte est désactivé.',
                     'connexion_requise'     => 'Connectez-vous pour accéder à cette page.',
-                    'serveur_bdd_arrete'    => 'Le serveur MySQL est arrêté. Démarrez le service MySQL80 puis réessayez.',
-                    'connexion_indisponible' => 'La base de données est indisponible. Activez PDO MySQL puis réessayez.',
+                    'serveur_bdd_arrete'    => 'La base de données est inaccessible. Vérifiez que MySQL/MariaDB est démarré et que la configuration de connexion est correcte.',
+                    'connexion_indisponible' => 'La base de données est indisponible. Vérifiez que PDO MySQL est activé et que la configuration de connexion est correcte.',
                 ];
                 echo htmlspecialchars($messages[$_GET['erreur']] ?? 'Une erreur est survenue.');
                 ?>
             </p>
         <?php endif; ?>
 
-        <form method="post" action="/controllers/AuthController.php?action=login">
+        <form method="post" action="<?php echo htmlspecialchars(BASE_URL . 'controllers/AuthController.php?action=login'); ?>">
             <div class="role-pills">
                 <?php foreach ($roles as $value => $label): ?>
                     <label class="role-pill">
@@ -71,7 +71,7 @@ $roles = [
         </form>
 
         <p style="text-align:center; font-size:12px; margin-top:14px;">
-            <a href="/views/auth/mot_de_passe_oublie.php" style="color:var(--primary);">Mot de passe oublié ?</a>
+            <a href="<?php echo htmlspecialchars(BASE_URL . 'views/auth/mot_de_passe_oublie.php'); ?>" style="color:var(--primary);">Mot de passe oublié ?</a>
         </p>
     </div>
 </div>
