@@ -1,13 +1,2 @@
 <?php
-require_once __DIR__ . '/../controllers/helpers.php';
-require_once __DIR__ . '/../controllers/EspaceEtudiantController.php';
-$user = requireRole(['etudiant']);
-$planning = (new EspaceEtudiantController())->planning((int) $user['id']);
-$pageTitle = 'Emploi du temps'; $showSidebar = true;
-require __DIR__ . '/../includes/header.php';
-?>
-<h1>Emploi du temps</h1>
-<div class="card" style="overflow-x:auto;"><table style="width:100%;border-collapse:collapse"><thead><tr><th>Date</th><th>Horaire</th><th>Module</th><th>Formateur</th><th>Statut</th></tr></thead><tbody>
-<?php foreach ($planning as $seance): ?><tr><td><?= htmlspecialchars($seance['dateSeance']) ?></td><td><?= htmlspecialchars(substr($seance['heureDebut'], 0, 5) . ' - ' . substr($seance['heureFin'], 0, 5)) ?></td><td><?= htmlspecialchars($seance['module']) ?></td><td><?= htmlspecialchars($seance['prenom'] . ' ' . $seance['nom']) ?></td><td><?= htmlspecialchars($seance['statut']) ?></td></tr><?php endforeach; ?>
-<?php if (!$planning): ?><tr><td colspan="5">Aucune séance programmée.</td></tr><?php endif; ?></tbody></table></div>
-<?php require __DIR__ . '/../includes/footer.php'; ?>
+require_once __DIR__.'/../controllers/helpers.php';require_once __DIR__.'/../config/database.php';$user=requireRole(['etudiant']);$q=database()->prepare('SELECT s.dateSeance,s.heureDebut,s.heureFin,s.statut,m.idModule,m.libelle,u.nom,u.prenom FROM seance s JOIN module m ON m.idModule=s.idModule LEFT JOIN formateur f ON f.idUtilisateur=s.idFormateur LEFT JOIN utilisateur u ON u.idUtilisateur=f.idUtilisateur JOIN semestre sm ON sm.idSemestre=m.idSemestre JOIN niveau n ON n.idNiveau=sm.idNiveau JOIN inscription i ON i.idNiveau=n.idNiveau JOIN dossier_etudiant d ON d.idDossier=i.idDossier WHERE d.idEtudiant=:id AND i.statut="VALIDEE" ORDER BY s.dateSeance,s.heureDebut');$q->execute(['id'=>$user['id']]);$rows=$q->fetchAll();$pageTitle='Emploi du temps';$showSidebar=true;require __DIR__.'/../includes/header.php';?><h2>Mon emploi du temps</h2><div class="card"><table><tr><th>Date</th><th>Horaire</th><th>Module</th><th>Formateur</th><th>Statut</th></tr><?php foreach($rows as $row):?><tr><td><?=htmlspecialchars($row['dateSeance'])?></td><td><?=htmlspecialchars(substr($row['heureDebut'],0,5).' - '.substr($row['heureFin'],0,5))?></td><td><?=htmlspecialchars('Module '.$row['idModule'].' - '.$row['libelle'])?></td><td><?=htmlspecialchars(trim(($row['prenom']??'').' '.($row['nom']??''))?:'Non affecté')?></td><td><?=htmlspecialchars($row['statut'])?></td></tr><?php endforeach;?><?php if(!$rows):?><tr><td colspan="5">Aucune séance programmée.</td></tr><?php endif;?></table></div><?php require __DIR__.'/../includes/footer.php';?>

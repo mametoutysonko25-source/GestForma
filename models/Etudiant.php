@@ -1,7 +1,7 @@
 <?php
 class Etudiant {
     private $conn;
-    private $table = "etudiant";
+    private $table = "ETUDIANT";
 
     public $idUtilisateur;
     public $matricule;
@@ -16,7 +16,7 @@ class Etudiant {
     public function getEtudiantById($idUtilisateur) {
         $query = "SELECT e.idUtilisateur, e.matricule, u.nom, u.prenom, u.email 
                   FROM " . $this->table . " e 
-                  INNER JOIN utilisateur u ON e.idUtilisateur = u.idUtilisateur 
+                  INNER JOIN UTILISATEUR u ON e.idUtilisateur = u.idUtilisateur 
                   WHERE e.idUtilisateur = :idUtilisateur";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(":idUtilisateur", $idUtilisateur);

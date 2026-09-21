@@ -1,7 +1,7 @@
 <?php
 class DossierEtudiant {
     private $conn;
-    private $table = "dossier_etudiant";
+    private $table = "DOSSIER_ETUDIANT";
 
     public $idDossier;
     public $anneeScolaire;
@@ -13,8 +13,8 @@ class DossierEtudiant {
     }
 
     public function creerDossier($idEtudiant, $anneeScolaire) {
-        $query = "INSERT INTO " . $this->table . " (anneeScolaire, statut, dateCreation, idEtudiant)
-              VALUES (:anneeScolaire, :statut, CURDATE(), :idEtudiant)";
+        $query = "INSERT INTO " . $this->table . " (anneeScolaire, statut, dateCreation, idEtudiant) 
+              VALUES (:anneeScolaire, :statut, CURRENT_DATE, :idEtudiant)";
         $stmt = $this->conn->prepare($query);
         $statut = "ACTIF";
         $stmt->bindParam(":anneeScolaire", $anneeScolaire);
@@ -23,23 +23,32 @@ class DossierEtudiant {
         return $stmt->execute();
     }
 
-    public function getDossierByEtudiant($idEtudiant, $anneeScolaire = null) {
-        $query = "SELECT * FROM " . $this->table . " WHERE idEtudiant = :idEtudiant";
-        if ($anneeScolaire !== null) {
-            $query .= " AND anneeScolaire = :anneeScolaire";
-        }
-        $query .= " ORDER BY idDossier DESC LIMIT 1";
+    public function getDossierByEtudiant($idEtudiant) {
+        $query = "SELECT * FROM " . $this->table . " WHERE idEtudiant = :idEtudiant ORDER BY idDossier DESC LIMIT 1";
         $stmt = $this->conn->prepare($query);
-        $stmt->bindValue(":idEtudiant", (int) $idEtudiant, PDO::PARAM_INT);
-        if ($anneeScolaire !== null) {
-            $stmt->bindValue(":anneeScolaire", $anneeScolaire);
-        }
+        $stmt->bindParam(":idEtudiant", $idEtudiant);
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
     public function getIdDossier() {
         return $this->conn->lastInsertId();
+    }
+
+    public function modifierDossier($idDossier, $anneeScolaire, $statut) {
+        $stmt = $this->conn->prepare(
+            "UPDATE " . $this->table . " SET anneeScolaire = :anneeScolaire, statut = :statut WHERE idDossier = :idDossier"
+        );
+        return $stmt->execute([
+            'idDossier' => $idDossier,
+            'anneeScolaire' => $anneeScolaire,
+            'statut' => $statut,
+        ]);
+    }
+
+    public function supprimerDossier($idDossier) {
+        $stmt = $this->conn->prepare("DELETE FROM " . $this->table . " WHERE idDossier = :idDossier");
+        return $stmt->execute(['idDossier' => $idDossier]);
     }
 }
 ?>

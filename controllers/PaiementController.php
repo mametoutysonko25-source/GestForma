@@ -13,25 +13,7 @@ class PaiementController {
     }
 
     public function enregistrerPaiement($montant, $modePaiement, $reference, $idInscription) {
-        if ((float) $montant <= 0 || trim((string) $modePaiement) === '' || (int) $idInscription <= 0) {
-            return false;
-        }
         return $this->paiementModel->enregistrerPaiement($montant, $modePaiement, $reference, $idInscription);
-    }
-
-    public function getPaiementById($idPaiement) {
-        return $this->paiementModel->getPaiementById($idPaiement);
-    }
-
-    public function modifierPaiement($idPaiement, $montant, $modePaiement, $reference) {
-        if ((float) $montant <= 0 || trim((string) $modePaiement) === '') {
-            return false;
-        }
-        return $this->paiementModel->modifierPaiement($idPaiement, $montant, $modePaiement, $reference);
-    }
-
-    public function supprimerPaiement($idPaiement) {
-        return $this->paiementModel->supprimerPaiement($idPaiement);
     }
 
     public function getInscriptionsValidees() {
@@ -48,6 +30,18 @@ class PaiementController {
 
     public function getAllPaiements() {
         return $this->paiementModel->getAllPaiements();
+    }
+
+    public function getPaiement($idPaiement) {
+        return $this->paiementModel->getById($idPaiement);
+    }
+
+    public function modifierPaiement($idPaiement, $montant, $modePaiement, $reference) {
+        return $this->paiementModel->modifierPaiement($idPaiement, $montant, $modePaiement, $reference);
+    }
+
+    public function supprimerPaiement($idPaiement) {
+        return $this->paiementModel->supprimerPaiement($idPaiement);
     }
 }
 ?>

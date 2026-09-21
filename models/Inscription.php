@@ -1,7 +1,7 @@
 <?php
 class Inscription {
     private $conn;
-    private $table = "inscription";
+    private $table = "INSCRIPTION";
 
     public $idInscription;
     public $dateInscription;
@@ -30,10 +30,10 @@ class Inscription {
                          e.matricule, u.nom, u.prenom, u.email,
                          n.libelle AS niveau_libelle
                   FROM " . $this->table . " i
-                  INNER JOIN dossier_etudiant d ON i.idDossier = d.idDossier
-                  INNER JOIN etudiant e ON d.idEtudiant = e.idUtilisateur
-                  INNER JOIN utilisateur u ON e.idUtilisateur = u.idUtilisateur
-                  INNER JOIN niveau n ON i.idNiveau = n.idNiveau
+                  INNER JOIN DOSSIER_ETUDIANT d ON i.idDossier = d.idDossier
+                  INNER JOIN ETUDIANT e ON d.idEtudiant = e.idUtilisateur
+                  INNER JOIN UTILISATEUR u ON e.idUtilisateur = u.idUtilisateur
+                  INNER JOIN NIVEAU n ON i.idNiveau = n.idNiveau
                   WHERE i.statut = 'EN_ATTENTE'
                   ORDER BY i.dateInscription DESC";
         $stmt = $this->conn->query($query);
@@ -66,10 +66,10 @@ class Inscription {
         $query = "SELECT i.*, n.libelle AS niveau_libelle, d.anneeScolaire,
                          e.matricule, u.nom, u.prenom, u.email
                   FROM " . $this->table . " i
-                  INNER JOIN dossier_etudiant d ON i.idDossier = d.idDossier
-                  INNER JOIN etudiant e ON d.idEtudiant = e.idUtilisateur
-                  INNER JOIN utilisateur u ON e.idUtilisateur = u.idUtilisateur
-                  INNER JOIN niveau n ON i.idNiveau = n.idNiveau
+                  INNER JOIN DOSSIER_ETUDIANT d ON i.idDossier = d.idDossier
+                  INNER JOIN ETUDIANT e ON d.idEtudiant = e.idUtilisateur
+                  INNER JOIN UTILISATEUR u ON e.idUtilisateur = u.idUtilisateur
+                  INNER JOIN NIVEAU n ON i.idNiveau = n.idNiveau
                   WHERE i.idInscription = :idInscription";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(":idInscription", $idInscription);

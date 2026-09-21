@@ -16,38 +16,16 @@ class InscriptionController {
     }
 
     public function demanderInscription($idEtudiant, $idNiveau, $anneeScolaire) {
-        $anneeScolaire = trim((string) $anneeScolaire);
-        if (!preg_match('/^\d{4}-\d{4}$/', $anneeScolaire) || (int) $idNiveau <= 0 || (int) $idEtudiant <= 0) {
-            return false;
+        $dossier = $this->dossierModel->getDossierByEtudiant($idEtudiant);
+        
+        if (!$dossier) {
+            $this->dossierModel->creerDossier($idEtudiant, $anneeScolaire);
+            $idDossier = $this->dossierModel->getIdDossier();
+        } else {
+            $idDossier = $dossier['idDossier'];
         }
 
-        $this->db->beginTransaction();
-        try {
-            $dossier = $this->dossierModel->getDossierByEtudiant($idEtudiant, $anneeScolaire);
-            if (!$dossier) {
-                if (!$this->dossierModel->creerDossier($idEtudiant, $anneeScolaire)) {
-                    throw new RuntimeException('Création du dossier impossible.');
-                }
-                $idDossier = $this->dossierModel->getIdDossier();
-            } else {
-                $idDossier = $dossier['idDossier'];
-            }
-
-            if ($this->inscriptionModel->getInscriptionByDossier($idDossier)) {
-                $this->db->rollBack();
-                return false;
-            }
-            if (!$this->inscriptionModel->demanderInscription($idDossier, $idNiveau)) {
-                throw new RuntimeException('Création de l’inscription impossible.');
-            }
-            $this->db->commit();
-            return true;
-        } catch (Throwable $exception) {
-            if ($this->db->inTransaction()) {
-                $this->db->rollBack();
-            }
-            return false;
-        }
+        return $this->inscriptionModel->demanderInscription($idDossier, $idNiveau);
     }
 
     public function getInscriptionsEnAttente() {

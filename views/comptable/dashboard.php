@@ -1,16 +1,11 @@
 <?php
 require_once __DIR__ . '/../../controllers/helpers.php';
-require_once __DIR__ . '/../../controllers/PaiementController.php';
-require_once __DIR__ . '/../../controllers/RemunerationController.php';
+require_once __DIR__ . '/../../config/database.php';
 $currentUser = requireRole(['comptable']);
-$paiements = (new PaiementController())->getAllPaiements();
-$inscriptions = (new PaiementController())->getInscriptionsValidees();
-$remunerations = (new RemunerationController())->all();
-$moisCourant = date('Y-m');
-$paiementsMois = array_sum(array_map(static fn (array $paiement): float => str_starts_with($paiement['datePaiement'], $moisCourant) ? (float) $paiement['montant'] : 0.0, $paiements));
-$impayes = count(array_filter($inscriptions, static fn (array $inscription): bool => (float) $inscription['total_paye'] <= 0));
-$aPayer = count(array_filter($remunerations, static fn (array $remuneration): bool => (float) $remuneration['montantDu'] > (float) $remuneration['montantPaye']));
-$solde = $paiementsMois - array_sum(array_map(static fn (array $remuneration): float => max(0, (float) $remuneration['montantDu'] - (float) $remuneration['montantPaye']), $remunerations));
+$db = database();
+$paiementsMois = (float) $db->query("SELECT COALESCE(SUM(montant), 0) FROM paiement WHERE datePaiement >= DATE_FORMAT(CURRENT_DATE, '%Y-%m-01')")->fetchColumn();
+$aPayer = (int) $db->query('SELECT COUNT(*) FROM remuneration_formateur WHERE montantDu > montantPaye')->fetchColumn();
+$impayes = (int) $db->query("SELECT COUNT(*) FROM (SELECT i.idInscription FROM inscription i LEFT JOIN paiement p ON p.idInscription = i.idInscription WHERE i.statut = 'VALIDEE' GROUP BY i.idInscription HAVING COALESCE(SUM(p.montant), 0) = 0) AS impayes")->fetchColumn();
 
 $pageTitle  = "Tableau de bord";
 $activeMenu = "dashboard";
@@ -34,14 +29,14 @@ require __DIR__ . '/../../includes/header.php';
     </div>
     <div class="card">
         <div style="font-size:12px; color:var(--muted);">Solde global</div>
-        <div style="font-size:22px; font-weight:bold;"><?= number_format($solde, 0, ',', ' ') ?> F</div>
+        <div style="font-size:22px; font-weight:bold;">-</div>
     </div>
 </div>
 
 <div class="card">
     <p style="color:var(--muted); font-size:13px;">
         Connexion réussie en tant que <strong><?= htmlspecialchars($currentUser['nom']) ?></strong> (rôle : comptable).
-        Les indicateurs sont calculés à partir des paiements, inscriptions et rémunérations enregistrés.
+        Les indicateurs sont calculés à partir des paiements et rémunérations enregistrés.
     </p>
 </div>
 

@@ -1,9 +1,22 @@
 <?php
 require_once __DIR__ . '/../../controllers/helpers.php';
-require_once __DIR__ . '/../../controllers/EspaceEtudiantController.php';
+require_once __DIR__ . '/../../config/database.php';
 
 $currentUser = requireRole(['etudiant']);
-$dossier = (new EspaceEtudiantController())->dossier((int) $currentUser['id']);
+$statement = database()->prepare(
+    'SELECT u.nom, u.prenom, u.email, e.matricule, e.dateNaissance,
+            e.adresse, d.anneeScolaire, d.statut AS statutDossier,
+            i.idNiveau, i.dateInscription, i.statut AS statutInscription
+     FROM utilisateur u
+     INNER JOIN etudiant e ON e.idUtilisateur = u.idUtilisateur
+     LEFT JOIN dossier_etudiant d ON d.idEtudiant = e.idUtilisateur
+     LEFT JOIN inscription i ON i.idDossier = d.idDossier
+     WHERE u.idUtilisateur = :id
+     ORDER BY d.idDossier DESC, i.idInscription DESC
+     LIMIT 1'
+);
+$statement->execute(['id' => $currentUser['id']]);
+$dossier = $statement->fetch();
 
 $pageTitle = 'Mon dossier';
 $showSidebar = true;

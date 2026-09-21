@@ -1,11 +1,70 @@
 <?php
-require_once __DIR__ . '/../../controllers/helpers.php'; require_once __DIR__ . '/../../controllers/PaiementController.php';
-requireRole(['comptable']); $controller = new PaiementController();
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['supprimer'])) { $controller->supprimerPaiement((int) $_POST['supprimer']); header('Location: paiements_etudiants.php'); exit; }
-$paiements = $controller->getAllPaiements(); $pageTitle = 'Paiements étudiants'; $showSidebar = true; require __DIR__ . '/../../includes/header.php';
+session_start();
+require_once __DIR__ . '/../../controllers/PaiementController.php';
+
+if (!isset($_SESSION['idUtilisateur'])) {
+    header("Location: ../../index.php");
+    exit();
+}
+
+$controller = new PaiementController();
+$inscriptions = $controller->getInscriptionsValidees();
 ?>
-<h1>Paiements étudiants</h1><p><a class="btn" href="enregistrer_paiement.php">Nouveau paiement</a></p>
-<div class="card" style="overflow-x:auto"><table style="width:100%;border-collapse:collapse"><thead><tr><th>Date</th><th>Étudiant</th><th>Inscription</th><th>Montant</th><th>Mode</th><th>Référence</th><th>Actions</th></tr></thead><tbody>
-<?php foreach ($paiements as $paiement): ?><tr><td><?= htmlspecialchars($paiement['datePaiement']) ?></td><td><?= htmlspecialchars($paiement['prenom'] . ' ' . $paiement['nom']) ?></td><td><?= (int) $paiement['idInscription'] ?></td><td><?= number_format((float) $paiement['montant'], 2, ',', ' ') ?> FCFA</td><td><?= htmlspecialchars($paiement['modePaiement']) ?></td><td><?= htmlspecialchars((string) $paiement['referencePaiement']) ?></td><td><a href="enregistrer_paiement.php?idPaiement=<?= (int) $paiement['idPaiement'] ?>">Modifier</a> <form method="post" style="display:inline"><button name="supprimer" value="<?= (int) $paiement['idPaiement'] ?>" onclick="return confirm('Supprimer ce paiement ?')">Supprimer</button></form></td></tr><?php endforeach; ?>
-<?php if (!$paiements): ?><tr><td colspan="7">Aucun paiement enregistré.</td></tr><?php endif; ?></tbody></table></div>
-<?php require __DIR__ . '/../../includes/footer.php'; ?>
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestion des paiements</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 1200px; margin: 20px auto; padding: 20px; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+        th { background: #007bff; color: white; }
+        .btn { padding: 5px 10px; background: #007bff; color: white; text-decoration: none; border: none; cursor: pointer; }
+        .solde-positif { color: green; font-weight: bold; }
+        .solde-negatif { color: red; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h1>Gestion des paiements étudiants</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Étudiant</th>
+                <th>Matricule</th>
+                <th>Email</th>
+                <th>Niveau</th>
+                <th>Année scolaire</th>
+                <th>Date inscription</th>
+                <th>Total payé</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($inscriptions as $ins): ?>
+                <tr>
+                    <td><?php echo $ins['nom'] . ' ' . $ins['prenom']; ?></td>
+                    <td><?php echo $ins['matricule']; ?></td>
+                    <td><?php echo $ins['email']; ?></td>
+                    <td><?php echo $ins['niveau_libelle']; ?></td>
+                    <td><?php echo $ins['anneeScolaire']; ?></td>
+                    <td><?php echo $ins['dateInscription']; ?></td>
+                    <td class="<?php echo $ins['total_paye'] > 0 ? 'solde-positif' : 'solde-negatif'; ?>">
+                        <?php echo number_format($ins['total_paye'], 2, ',', ' '); ?> FCFA
+                    </td>
+                    <td>
+                        <a href="enregistrer_paiement.php?idInscription=<?php echo $ins['idInscription']; ?>" class="btn">
+                            Enregistrer paiement
+                        </a>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+
+    <p><a href="enregistrer_paiement.php">Nouveau paiement</a></p>
+<p><a href="../../index.php?logout=1">Se déconnecter / changer de rôle</a></p>
+</body>
+</html>
