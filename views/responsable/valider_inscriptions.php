@@ -1,95 +1,74 @@
 <?php
-session_start();
+require_once __DIR__ . '/../../controllers/helpers.php';
 require_once __DIR__ . '/../../controllers/InscriptionController.php';
 
-if (!isset($_SESSION['idUtilisateur'])) {
-    header("Location: ../../index.php");
-    exit();
-}
-
+requireRole(['responsable']);
 $controller = new InscriptionController();
-$message = "";
+$message = null;
+$erreur = null;
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
-    $idInscription = $_POST['idInscription'];
-    
-    if ($_POST['action'] === 'valider') {
-        if ($controller->validerInscription($idInscription)) {
-            $message = "Inscription validée avec succès.";
-        }
-    } elseif ($_POST['action'] === 'refuser') {
-        if ($controller->refuserInscription($idInscription)) {
-            $message = "Inscription refusée.";
-        }
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $idInscription = (int) ($_POST['idInscription'] ?? 0);
+    $action = $_POST['action'] ?? '';
+
+    if ($idInscription <= 0 || !in_array($action, ['valider', 'refuser'], true)) {
+        $erreur = 'Action invalide.';
+    } elseif ($action === 'valider' && $controller->validerInscription($idInscription)) {
+        $message = 'Inscription validée avec succès.';
+    } elseif ($action === 'refuser' && $controller->refuserInscription($idInscription)) {
+        $message = 'Inscription refusée.';
+    } else {
+        $erreur = 'La mise à jour de l’inscription a échoué.';
     }
 }
 
 $inscriptions = $controller->getInscriptionsEnAttente();
+$pageTitle = 'Validation des inscriptions';
+$showSidebar = true;
+require __DIR__ . '/../../includes/header.php';
 ?>
 
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>Validation des inscriptions</title>
-    <style>
-        body { font-family: Arial, sans-serif; max-width: 1000px; margin: 20px auto; padding: 20px; }
-        table { width: 100%; border-collapse: collapse; }
-        th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
-        th { background: #007bff; color: white; }
-        .btn { padding: 5px 10px; margin: 2px; text-decoration: none; color: white; border: none; cursor: pointer; }
-        .btn-valider { background: green; }
-        .btn-refuser { background: red; }
-        .message { color: green; margin-bottom: 15px; }
-    </style>
-</head>
-<body>
-    <h1>Validation des inscriptions</h1>
+<h2 style="margin-top:0;">Demandes d'inscription en attente</h2>
+<?php if ($message): ?><p style="color:#217a4b;"><?= htmlspecialchars($message) ?></p><?php endif; ?>
+<?php if ($erreur): ?><p style="color:#c62828;"><?= htmlspecialchars($erreur) ?></p><?php endif; ?>
 
-    <?php if ($message): ?>
-        <div class="message"><?php echo $message; ?></div>
-    <?php endif; ?>
+<div class="card" style="overflow-x:auto;">
+    <table style="width:100%; border-collapse:collapse;">
+        <thead>
+            <tr style="background:var(--primary); color:#fff;">
+                <th style="padding:10px; text-align:left;">Étudiant</th>
+                <th style="padding:10px; text-align:left;">Matricule</th>
+                <th style="padding:10px; text-align:left;">Niveau</th>
+                <th style="padding:10px; text-align:left;">Année scolaire</th>
+                <th style="padding:10px; text-align:left;">Date</th>
+                <th style="padding:10px; text-align:left;">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        <?php foreach ($inscriptions as $inscription): ?>
+            <tr style="border-bottom:1px solid #eee;">
+                <td style="padding:10px;"><?= htmlspecialchars($inscription['prenom'] . ' ' . $inscription['nom']) ?></td>
+                <td style="padding:10px;"><?= htmlspecialchars($inscription['matricule']) ?></td>
+                <td style="padding:10px;"><?= htmlspecialchars($inscription['niveau_libelle']) ?></td>
+                <td style="padding:10px;"><?= htmlspecialchars($inscription['anneeScolaire']) ?></td>
+                <td style="padding:10px;"><?= htmlspecialchars($inscription['dateInscription']) ?></td>
+                <td style="padding:10px; white-space:nowrap;">
+                    <form method="post" style="display:inline;">
+                        <input type="hidden" name="idInscription" value="<?= (int) $inscription['idInscription'] ?>">
+                        <button class="btn" type="submit" name="action" value="valider">Valider</button>
+                    </form>
+                    <form method="post" style="display:inline; margin-left:6px;" onsubmit="return confirm('Refuser cette demande ?');">
+                        <input type="hidden" name="idInscription" value="<?= (int) $inscription['idInscription'] ?>">
+                        <button type="submit" name="action" value="refuser" style="border:0; background:none; color:#c62828; cursor:pointer;">Refuser</button>
+                    </form>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+        <?php if (!$inscriptions): ?>
+            <tr><td colspan="6" style="padding:16px; text-align:center; color:var(--muted);">Aucune demande en attente.</td></tr>
+        <?php endif; ?>
+        </tbody>
+    </table>
+</div>
 
-    <?php if (count($inscriptions) > 0): ?>
-        <table>
-            <thead>
-                <tr>
-                    <th>Étudiant</th>
-                    <th>Matricule</th>
-                    <th>Email</th>
-                    <th>Niveau</th>
-                    <th>Année scolaire</th>
-                    <th>Date demande</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($inscriptions as $ins): ?>
-                    <tr>
-                        <td><?php echo $ins['nom'] . ' ' . $ins['prenom']; ?></td>
-                        <td><?php echo $ins['matricule']; ?></td>
-                        <td><?php echo $ins['email']; ?></td>
-                        <td><?php echo $ins['niveau_libelle']; ?></td>
-                        <td><?php echo $ins['anneeScolaire']; ?></td>
-                        <td><?php echo $ins['dateInscription']; ?></td>
-                        <td>
-                            <form method="POST" style="display:inline;">
-                                <input type="hidden" name="idInscription" value="<?php echo $ins['idInscription']; ?>">
-                                <button type="submit" name="action" value="valider" class="btn btn-valider">Valider</button>
-                            </form>
-                            <form method="POST" style="display:inline;">
-                                <input type="hidden" name="idInscription" value="<?php echo $ins['idInscription']; ?>">
-                                <button type="submit" name="action" value="refuser" class="btn btn-refuser" 
-                                    onclick="return confirm('Êtes-vous sûr de refuser cette inscription ?')">Refuser</button>
-                            </form>
-                        </td>
-                    </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-    <?php else: ?>
-        <p>Aucune inscription en attente de validation.</p>
-    <?php endif; ?>
-<p><a href="../../index.php?logout=1">Se déconnecter / changer de rôle</a></p>
-</body>
-</html>
+<?php require __DIR__ . '/../../includes/footer.php'; ?>

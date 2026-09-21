@@ -13,8 +13,8 @@ class DossierEtudiant {
     }
 
     public function creerDossier($idEtudiant, $anneeScolaire) {
-        $query = "INSERT INTO " . $this->table . " (anneeScolaire, statut, idEtudiant) 
-                  VALUES (:anneeScolaire, :statut, :idEtudiant)";
+        $query = "INSERT INTO " . $this->table . " (anneeScolaire, statut, dateCreation, idEtudiant) 
+              VALUES (:anneeScolaire, :statut, CURRENT_DATE, :idEtudiant)";
         $stmt = $this->conn->prepare($query);
         $statut = "ACTIF";
         $stmt->bindParam(":anneeScolaire", $anneeScolaire);
@@ -33,6 +33,22 @@ class DossierEtudiant {
 
     public function getIdDossier() {
         return $this->conn->lastInsertId();
+    }
+
+    public function modifierDossier($idDossier, $anneeScolaire, $statut) {
+        $stmt = $this->conn->prepare(
+            "UPDATE " . $this->table . " SET anneeScolaire = :anneeScolaire, statut = :statut WHERE idDossier = :idDossier"
+        );
+        return $stmt->execute([
+            'idDossier' => $idDossier,
+            'anneeScolaire' => $anneeScolaire,
+            'statut' => $statut,
+        ]);
+    }
+
+    public function supprimerDossier($idDossier) {
+        $stmt = $this->conn->prepare("DELETE FROM " . $this->table . " WHERE idDossier = :idDossier");
+        return $stmt->execute(['idDossier' => $idDossier]);
     }
 }
 ?>

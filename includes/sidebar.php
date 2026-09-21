@@ -7,6 +7,7 @@ $pageActuelle = basename($_SERVER['PHP_SELF'] ?? '');
 $menuParRole = [
     'etudiant' => [
         ['label' => 'Tableau de bord', 'url' => '/views/etudiant/dashboard.php', 'icon' => '📊'],
+        ['label' => 'Demander une inscription', 'url' => '/views/etudiant/demande_inscription.php', 'icon' => '📝'],
         ['label' => 'Mon dossier', 'url' => '/views/etudiant/dossier.php', 'icon' => '📁'],
         ['label' => 'Emploi du temps', 'url' => '/etudiant/planning.php', 'icon' => '🗓️'],
         ['label' => 'Modules', 'url' => '/etudiant/modules.php', 'icon' => '📚'],
@@ -27,7 +28,7 @@ $menuParRole = [
     ],
     'responsable' => [
         ['label' => 'Étudiants', 'url' => '/responsable/etudiants.php', 'icon' => '🎓'],
-        ['label' => 'Inscriptions', 'url' => '/responsable/inscriptions.php', 'icon' => '📥'],
+        ['label' => 'Inscriptions', 'url' => '/views/responsable/valider_inscriptions.php', 'icon' => '📥'],
         ['label' => 'Formations', 'url' => '/responsable/formations.php', 'icon' => '📘'],
         ['label' => 'Niveaux & semestres', 'url' => '/responsable/niveaux.php', 'icon' => '🎯'],
         ['label' => 'Modules', 'url' => '/responsable/modules.php', 'icon' => '📚'],

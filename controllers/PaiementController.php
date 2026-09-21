@@ -31,5 +31,17 @@ class PaiementController {
     public function getAllPaiements() {
         return $this->paiementModel->getAllPaiements();
     }
+
+    public function getPaiement($idPaiement) {
+        return $this->paiementModel->getById($idPaiement);
+    }
+
+    public function modifierPaiement($idPaiement, $montant, $modePaiement, $reference) {
+        return $this->paiementModel->modifierPaiement($idPaiement, $montant, $modePaiement, $reference);
+    }
+
+    public function supprimerPaiement($idPaiement) {
+        return $this->paiementModel->supprimerPaiement($idPaiement);
+    }
 }
 ?>
