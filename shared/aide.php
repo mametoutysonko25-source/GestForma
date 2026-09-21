@@ -1,0 +1,1 @@
+<?php $pageTitle = 'Aide'; $pageDescription = 'L’aide de GestForm sera disponible ici.'; $showSidebar = false; require __DIR__ . '/views/shared/page.php';

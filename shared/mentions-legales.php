@@ -1,0 +1,1 @@
+<?php $pageTitle = 'Mentions légales'; $pageDescription = 'Les mentions légales de GestForm seront disponibles ici.'; $showSidebar = false; require __DIR__ . '/views/shared/page.php';

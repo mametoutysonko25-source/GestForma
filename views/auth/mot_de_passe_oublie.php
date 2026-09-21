@@ -1,0 +1,1 @@
+<?php $pageTitle = 'Mot de passe oublié'; $pageDescription = 'La récupération du mot de passe sera disponible ici.'; $showSidebar = false; require __DIR__ . '/../shared/page.php';
