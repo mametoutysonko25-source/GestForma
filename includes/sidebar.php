@@ -84,4 +84,4 @@ $menuItems = $menuParRole[$roleUtilisateur] ?? [];
     </ul>
 </aside>
 
-<script src="/assets/js/sidebar.js"></script>
+<script src="<?= htmlspecialchars(BASE_URL . 'assets/js/sidebar.js') ?>"></script>

@@ -1,6 +1,8 @@
 <?php
 
-define('BASE_URL', '/GestForma/');
+$scriptName = str_replace('\\', '/', $_SERVER['SCRIPT_NAME'] ?? '');
+$basePath = (strpos($scriptName, '/GestForma/') === 0) ? '/GestForma/' : '/';
+define('BASE_URL', $basePath);
 
 define('DASHBOARD_PAR_ROLE', [
     'etudiant'       => BASE_URL . 'views/etudiant/dashboard.php',

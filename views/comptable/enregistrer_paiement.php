@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/../../controllers/helpers.php';
 require_once __DIR__ . '/../../controllers/PaiementController.php';
+require_once __DIR__ . '/../../config/app.php';
 
 requireRole(['comptable']);
 $controller = new PaiementController();
@@ -82,7 +83,7 @@ require __DIR__ . '/../../includes/header.php';
             <input type="text" id="reference" name="reference" maxlength="100" value="<?= htmlspecialchars($paiement['reference'] ?? '') ?>">
         </div>
         <button class="btn" type="submit"><?= $paiement ? 'Enregistrer les modifications' : 'Enregistrer le paiement' ?></button>
-        <a href="/views/comptable/paiements.php" style="margin-left:12px;">Retour à la liste</a>
+        <a href="<?= htmlspecialchars(BASE_URL . 'views/comptable/paiements.php') ?>" style="margin-left:12px;">Retour à la liste</a>
     </form>
 </div>
 

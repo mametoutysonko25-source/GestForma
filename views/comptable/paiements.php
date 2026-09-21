@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/../../controllers/helpers.php';
 require_once __DIR__ . '/../../controllers/PaiementController.php';
+require_once __DIR__ . '/../../config/app.php';
 require_once __DIR__ . '/../../controllers/PaiementController.php';
 
 requireRole(['comptable']);
@@ -29,7 +30,7 @@ require __DIR__ . '/../../includes/header.php';
 <h2 style="margin-top:0;">Paiements étudiants</h2>
 <?php if ($message): ?><p style="color:#217a4b;"><?= htmlspecialchars($message) ?></p><?php endif; ?>
 <?php if ($erreur): ?><p style="color:#c62828;"><?= htmlspecialchars($erreur) ?></p><?php endif; ?>
-<p><a class="btn" href="/views/comptable/enregistrer_paiement.php">Ajouter un paiement</a></p>
+<p><a class="btn" href="<?= htmlspecialchars(BASE_URL . 'views/comptable/enregistrer_paiement.php') ?>">Ajouter un paiement</a></p>
 <div class="card" style="overflow-x:auto;">
     <table style="width:100%; border-collapse:collapse;">
         <thead>
@@ -49,7 +50,7 @@ require __DIR__ . '/../../includes/header.php';
                     <td style="padding:10px;"><?= htmlspecialchars($paiement['niveau_libelle']) ?></td>
                     <td style="padding:10px;"><?= number_format((float) $paiement['montant'], 2, ',', ' ') ?> FCFA</td>
                     <td style="padding:10px; white-space:nowrap;">
-                        <a href="/views/comptable/enregistrer_paiement.php?idPaiement=<?= (int) $paiement['idPaiement'] ?>">Détail / modifier</a>
+                        <a href="<?= htmlspecialchars(BASE_URL . 'views/comptable/enregistrer_paiement.php?idPaiement=' . (int) $paiement['idPaiement']) ?>">Détail / modifier</a>
                         <form method="post" style="display:inline; margin-left:8px;" onsubmit="return confirm('Supprimer ce paiement ?');">
                             <input type="hidden" name="action" value="supprimer">
                             <input type="hidden" name="idPaiement" value="<?= (int) $paiement['idPaiement'] ?>">

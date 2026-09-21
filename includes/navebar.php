@@ -73,4 +73,4 @@ $pageActuelle = basename($_SERVER['PHP_SELF'] ?? '');
     </ul>
 </nav>
 
-<script src="/assets/js/navebar.js"></script>
+<script src="<?= htmlspecialchars(BASE_URL . 'assets/js/navebar.js') ?>"></script>

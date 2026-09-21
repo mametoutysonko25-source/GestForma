@@ -1,9 +1,7 @@
 <?php
 
 require_once __DIR__ . '/../config/session.php';
-if (!defined('BASE_URL')) {
-    define('BASE_URL', '/GestForma/');
-}
+require_once __DIR__ . '/../config/app.php';
 
 function requireRole(array $rolesAutorises): array
 {
