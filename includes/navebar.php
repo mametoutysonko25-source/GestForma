@@ -11,17 +11,10 @@ $liensCommuns = [
 
 $liensParRole = [
     'etudiant' => [
-<<<<<<< HEAD
         ['label' => 'Mon dossier', 'url' => BASE_URL . 'views/etudiant/dossier.php', 'icon' => '📁'],
         ['label' => 'Emploi du temps', 'url' => BASE_URL . 'etudiant/planning.php', 'icon' => '🗓️'],
         ['label' => 'Modules', 'url' => BASE_URL . 'etudiant/modules.php', 'icon' => '📚'],
         ['label' => 'Résultats', 'url' => BASE_URL . 'etudiant/resultats.php', 'icon' => '📊'],
-=======
-        ['label' => 'Mon dossier', 'url' => '/views/etudiant/dossier.php', 'icon' => '📁'],
-        ['label' => 'Emploi du temps', 'url' => '/etudiant/planning.php', 'icon' => '🗓️'],
-        ['label' => 'Modules', 'url' => '/etudiant/modules.php', 'icon' => '📚'],
-        ['label' => 'Résultats', 'url' => '/etudiant/resultats.php', 'icon' => '📊'],
->>>>>>> 5afcf4e06df978dbe79398a368641aed31957b21
     ],
     'formateur' => [
         ['label' => 'Mes modules', 'url' => BASE_URL . 'views/formateur/modules.php', 'icon' => '📚'],
@@ -35,15 +28,9 @@ $liensParRole = [
         ['label' => 'Planning', 'url' => BASE_URL . 'responsable/planning.php', 'icon' => '🗓️'],
     ],
     'comptable' => [
-<<<<<<< HEAD
         ['label' => 'Paiements', 'url' => BASE_URL . 'views/comptable/paiements.php', 'icon' => '💳'],
         ['label' => 'Situations', 'url' => BASE_URL . 'views/comptable/situations.php', 'icon' => '📊'],
         ['label' => 'Rémunérations', 'url' => BASE_URL . 'views/comptable/remunerations.php', 'icon' => '💰'],
-=======
-        ['label' => 'Paiements', 'url' => '/views/comptable/paiements.php', 'icon' => '💳'],
-        ['label' => 'Situations', 'url' => '/views/comptable/situations.php', 'icon' => '📊'],
-        ['label' => 'Rémunérations', 'url' => '/views/comptable/remunerations.php', 'icon' => '💰'],
->>>>>>> 5afcf4e06df978dbe79398a368641aed31957b21
     ],
     'administrateur' => [
         ['label' => 'Utilisateurs', 'url' => BASE_URL . 'admin/utilisateurs.php', 'icon' => '👥'],
