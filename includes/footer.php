@@ -1,6 +1,7 @@
 <?php
 // includes/footer.php
 // Footer commun/générique - GestForm
+require_once __DIR__ . '/../config/app.php';
 $anneeActuelle = date('Y');
 ?>
 <?php if (!empty($showSidebar)): ?>
@@ -13,10 +14,10 @@ $anneeActuelle = date('Y');
     </div>
 
     <div class="gf-footer__links">
-        <a href="/a-propos.php">À propos</a>
-        <a href="/aide.php">Aide</a>
-        <a href="/contact.php">Contact</a>
-        <a href="/mentions-legales.php">Mentions légales</a>
+        <a href="<?php echo htmlspecialchars(BASE_URL . 'shared/a-propos.php'); ?>">À propos</a>
+        <a href="<?php echo htmlspecialchars(BASE_URL . 'shared/aide.php'); ?>">Aide</a>
+        <a href="<?php echo htmlspecialchars(BASE_URL . 'shared/contact.php'); ?>">Contact</a>
+        <a href="<?php echo htmlspecialchars(BASE_URL . 'shared/mentions-legales.php'); ?>">Mentions légales</a>
     </div>
 
     <div class="gf-footer__right">

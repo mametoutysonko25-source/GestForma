@@ -1,1 +1,1 @@
-<?php $pageTitle = 'Paramètres'; $pageDescription = 'Les paramètres de votre compte seront disponibles ici.'; $allowedRoles = ['etudiant', 'formateur', 'responsable', 'comptable', 'administrateur', 'directeur']; require __DIR__ . '/views/shared/page.php';
+<?php $pageTitle = 'Paramètres'; $pageDescription = 'Les paramètres de votre compte seront disponibles ici.'; $allowedRoles = ['etudiant', 'formateur', 'responsable', 'comptable', 'administrateur', 'directeur']; require __DIR__ . '/../views/shared/page.php';

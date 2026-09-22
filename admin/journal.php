@@ -1,0 +1,5 @@
+<?php
+require_once __DIR__ . '/../controllers/helpers.php'; requireRole(['administrateur']); $db = database();
+$actions = $db->query('SELECT h.*, u.prenom, u.nom FROM historique h INNER JOIN utilisateur u ON u.idUtilisateur = h.utilisateurId ORDER BY h.dateAction DESC, h.idHistorique DESC LIMIT 200')->fetchAll();
+$pageTitle = 'Journal des actions'; $activeMenu = 'journal'; $contentClass = 'management-content'; require __DIR__ . '/../includes/header.php';
+?><div class="director-heading"><div><h2>Journal des actions</h2><p><?= count($actions) ?> dernières actions enregistrées.</p></div></div><div class="card table-card"><table class="director-table"><thead><tr><th>Date</th><th>Utilisateur</th><th>Action</th><th>Détails</th></tr></thead><tbody><?php foreach ($actions as $action): ?><tr><td><?= htmlspecialchars($action['dateAction']) ?></td><td><?= htmlspecialchars($action['prenom'].' '.$action['nom']) ?></td><td><?= htmlspecialchars($action['action']) ?></td><td><?= htmlspecialchars($action['details'] ?: '-') ?></td></tr><?php endforeach; ?></tbody></table></div><?php require __DIR__ . '/../includes/footer.php'; ?>

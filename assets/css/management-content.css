@@ -1,0 +1,179 @@
+.management-content {
+    max-width: 1280px;
+    padding: 1.75rem 2rem 2.5rem;
+}
+
+.management-content .card {
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    box-shadow: 0 5px 16px rgba(15, 23, 42, .05);
+}
+
+.management-content .director-heading {
+    margin-bottom: 1.5rem;
+}
+
+.management-content .director-heading h2,
+.management-content .form-card h2 {
+    color: #123b5d;
+    font-size: 1.35rem;
+    letter-spacing: 0;
+}
+
+.management-content .director-heading p,
+.management-content .section-heading p {
+    color: #64748b;
+    font-size: .84rem;
+}
+
+.management-content .table-card {
+    overflow-x: auto;
+    padding: 0;
+}
+
+.management-content .director-table {
+    min-width: 760px;
+}
+
+.management-content .director-table th {
+    background: #f1f6fa;
+    color: #24445c;
+    font-size: .73rem;
+    letter-spacing: .03em;
+    text-transform: uppercase;
+}
+
+.management-content .director-table tbody tr {
+    transition: background-color .15s ease;
+}
+
+.management-content .director-table tbody tr:hover {
+    background: #f8fafc;
+}
+
+.management-content .director-table td {
+    color: #334155;
+    vertical-align: middle;
+}
+
+.management-content .btn {
+    align-items: center;
+    border: 0;
+    border-radius: 5px;
+    cursor: pointer;
+    display: inline-flex;
+    font: inherit;
+    font-size: .78rem;
+    font-weight: 600;
+    gap: 5px;
+    justify-content: center;
+    min-height: 36px;
+    padding: 0 14px;
+    text-decoration: none;
+    transition: background-color .15s ease, transform .15s ease;
+}
+
+.management-content .btn:hover {
+    transform: translateY(-1px);
+}
+
+.management-content .btn-primary {
+    background: #166534;
+    color: #fff;
+}
+
+.management-content .btn-primary:hover { background: #14532d; }
+.management-content .btn-secondary { background: #e8eef3; color: #24445c; }
+.management-content .btn-secondary:hover { background: #dbe5ec; }
+.management-content .btn-danger { background: #b42318; color: #fff; }
+.management-content .btn-danger:hover { background: #912018; }
+.management-content .btn-success { background: #15803d; color: #fff; }
+.management-content .btn-success:hover { background: #166534; }
+.management-content .btn-small { min-height: 30px; padding: 0 9px; font-size: .7rem; }
+
+.management-content .actions-cell,
+.management-content .inline-form { white-space: nowrap; }
+.management-content .inline-form { display: inline-flex; margin-left: 5px; }
+.management-content .role-form { align-items: center; display: flex; gap: 6px; min-width: 300px; }
+.management-content .role-form select { min-height: 30px; }
+.management-content .muted-label { color: #94a3b8; font-size: .75rem; }
+.management-content .form-error { margin-bottom: 1rem; }
+.management-content .role-summary { margin-top: 1rem; padding: 1.25rem; }
+.management-content .role-summary h3 { color: #24445c; font-size: .95rem; margin: 0 0 1rem; }
+.management-content .role-summary-grid { display: grid; gap: 10px; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.management-content .role-summary-grid div { background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 6px; display: flex; justify-content: space-between; padding: 10px 12px; }
+.management-content .role-summary-grid span { color: #64748b; font-size: .75rem; }
+.management-content .role-summary-grid strong { color: #123b5d; }
+
+.management-content .role-badge,
+.management-content .status-badge {
+    border-radius: 999px;
+    display: inline-block;
+    font-size: .68rem;
+    font-weight: 700;
+    padding: 4px 9px;
+    white-space: nowrap;
+}
+
+.management-content .role-badge { background: #e0f2fe; color: #075985; }
+.management-content .status-actif { background: #dcfce7; color: #166534; }
+.management-content .status-inactif { background: #fef3c7; color: #92400e; }
+.management-content .status-bloque { background: #fee2e2; color: #991b1b; }
+
+.management-content .form-card { max-width: 780px; padding: 1.5rem; }
+.management-content .section-heading { margin-bottom: 1.25rem; }
+.management-content .section-heading h2 { margin: 0 0 .35rem; }
+.management-content .section-heading p { margin: 0; }
+.management-content .form-grid { display: grid; gap: 1rem; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.management-content .full-field { grid-column: 1 / -1; }
+.management-content label { color: #334155; display: grid; font-size: .78rem; font-weight: 600; gap: .4rem; }
+.management-content input,
+.management-content select {
+    background: #fff;
+    border: 1px solid #cbd5e1;
+    border-radius: 5px;
+    color: #1e293b;
+    font: inherit;
+    min-height: 38px;
+    padding: 0 10px;
+    width: 100%;
+}
+.management-content input:focus,
+.management-content select:focus { border-color: #166534; box-shadow: 0 0 0 3px rgba(22, 101, 52, .12); outline: 0; }
+.management-content .form-actions { border-top: 1px solid #e5e7eb; display: flex; gap: 8px; margin-top: 1.5rem; padding-top: 1.25rem; }
+.management-content .form-error { background: #fff1f2; border-left: 3px solid #b42318; color: #991b1b; padding: .7rem .8rem; }
+.management-content .attendance-card { max-width: 900px; padding: 1.5rem; }
+.management-content .session-selector { margin-bottom: 1rem; max-width: 420px; }
+.management-content .attendance-banner { align-items: center; border-radius: 6px; display: flex; gap: 10px; margin-bottom: 1rem; padding: 11px 13px; }
+.management-content .attendance-banner span { color: #475569; font-size: .78rem; }
+.management-content .attendance-open { background: #ecfdf5; border: 1px solid #a7f3d0; }
+.management-content .attendance-open strong { color: #047857; }
+.management-content .attendance-closed { background: #fff7ed; border: 1px solid #fed7aa; }
+.management-content .attendance-closed strong { color: #c2410c; }
+.management-content .attendance-list { border: 1px solid #e5e7eb; border-radius: 6px; margin-bottom: 1rem; overflow: hidden; }
+.management-content .attendance-head,
+.management-content .attendance-row { align-items: center; display: grid; grid-template-columns: 1fr 1.4fr; gap: 12px; padding: 12px 14px; }
+.management-content .attendance-head { background: #f1f6fa; color: #24445c; font-size: .72rem; font-weight: 700; text-transform: uppercase; }
+.management-content .attendance-row { border-top: 1px solid #e5e7eb; color: #334155; font-size: .8rem; }
+.management-content .attendance-options { display: flex; flex-wrap: wrap; gap: 12px; }
+.management-content .attendance-options label { align-items: center; display: inline-flex; flex-direction: row; font-size: .75rem; font-weight: 500; gap: 5px; }
+.management-content .attendance-options input { min-height: auto; width: auto; }
+.management-content .remuneration-kpis { display: grid; gap: 12px; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-bottom: 1rem; }
+.management-content .remuneration-kpis > div { background: #fff; border: 1px solid #e5e7eb; border-radius: 8px; box-shadow: 0 5px 16px rgba(15,23,42,.05); padding: 1rem 1.1rem; }
+.management-content .remuneration-kpis span { color: #64748b; display: block; font-size: .73rem; }
+.management-content .remuneration-kpis strong { color: #123b5d; display: block; font-size: 1.25rem; margin-top: 6px; }
+.management-content .empty-state { color: #64748b; padding: 1rem 0; }
+
+@media (max-width: 650px) {
+    .management-content { padding: 1rem; }
+    .management-content .director-heading { align-items: stretch; flex-direction: column; }
+    .management-content .form-grid { grid-template-columns: 1fr; }
+    .management-content .full-field { grid-column: auto; }
+    .management-content .remuneration-kpis { grid-template-columns: 1fr; }
+    .management-content .attendance-head,
+    .management-content .attendance-row { grid-template-columns: 1fr; }
+    .management-content .role-form { align-items: stretch; flex-direction: column; min-width: 0; }
+    .management-content .role-summary-grid { grid-template-columns: 1fr; }
+    .management-content .actions-cell { white-space: normal; }
+    .management-content .inline-form { margin-left: 0; margin-top: 5px; }
+}

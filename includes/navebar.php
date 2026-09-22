@@ -1,43 +1,45 @@
 <?php
 // includes/navbar.php
 // Navbar commune/générique - GestForm
+require_once __DIR__ . '/../config/app.php';
 $roleUtilisateur = $_SESSION['user']['role'] ?? $_SESSION['role_utilisateur'] ?? 'invite';
 
 $liensCommuns = [
-    ['label' => 'Accueil', 'url' => '/index.php', 'icon' => '🏠'],
-    ['label' => 'Profil', 'url' => '/profil.php', 'icon' => '👤'],
+    ['label' => 'Accueil', 'url' => BASE_URL . 'index.php', 'icon' => '🏠'],
+    ['label' => 'Profil', 'url' => BASE_URL . 'shared/profil.php', 'icon' => '👤'],
 ];
 
 $liensParRole = [
     'etudiant' => [
-        ['label' => 'Mon dossier', 'url' => '/etudiant/dossier.php', 'icon' => '📁'],
-        ['label' => 'Emploi du temps', 'url' => '/etudiant/planning.php', 'icon' => '🗓️'],
-        ['label' => 'Modules', 'url' => '/etudiant/modules.php', 'icon' => '📚'],
-        ['label' => 'Résultats', 'url' => '/etudiant/resultats.php', 'icon' => '📊'],
+        ['label' => 'Mon dossier', 'url' => BASE_URL . 'views/etudiant/dossier.php', 'icon' => '📁'],
+        ['label' => 'Emploi du temps', 'url' => BASE_URL . 'etudiant/planning.php', 'icon' => '🗓️'],
+        ['label' => 'Modules', 'url' => BASE_URL . 'etudiant/modules.php', 'icon' => '📚'],
+        ['label' => 'Résultats', 'url' => BASE_URL . 'etudiant/resultats.php', 'icon' => '📊'],
     ],
     'formateur' => [
-        ['label' => 'Mes modules', 'url' => '/formateur/modules.php', 'icon' => '📚'],
-        ['label' => 'Mes séances', 'url' => '/formateur/seances.php', 'icon' => '🗓️'],
-        ['label' => 'Évaluations', 'url' => '/formateur/evaluations.php', 'icon' => '📝'],
+        ['label' => 'Mes modules', 'url' => BASE_URL . 'views/formateur/modules.php', 'icon' => '📚'],
+        ['label' => 'Mes séances', 'url' => BASE_URL . 'views/formateur/seances.php', 'icon' => '🗓️'],
+        ['label' => 'Évaluations', 'url' => BASE_URL . 'views/formateur/evaluations.php', 'icon' => '📝'],
+        ['label' => 'Documents pédagogiques', 'url' => BASE_URL . 'views/formateur/supports.php', 'icon' => '📎'],
     ],
     'responsable' => [
-        ['label' => 'Étudiants', 'url' => '/responsable/etudiants.php', 'icon' => '🎓'],
-        ['label' => 'Formations', 'url' => '/responsable/formations.php', 'icon' => '📘'],
-        ['label' => 'Planning', 'url' => '/responsable/planning.php', 'icon' => '🗓️'],
+        ['label' => 'Étudiants', 'url' => BASE_URL . 'responsable/etudiants.php', 'icon' => '🎓'],
+        ['label' => 'Formations', 'url' => BASE_URL . 'responsable/formations.php', 'icon' => '📘'],
+        ['label' => 'Planning', 'url' => BASE_URL . 'responsable/planning.php', 'icon' => '🗓️'],
     ],
     'comptable' => [
-        ['label' => 'Paiements', 'url' => '/comptable/paiements.php', 'icon' => '💳'],
-        ['label' => 'Situations', 'url' => '/comptable/situations.php', 'icon' => '📊'],
-        ['label' => 'Rémunérations', 'url' => '/comptable/remunerations.php', 'icon' => '💰'],
+        ['label' => 'Paiements', 'url' => BASE_URL . 'views/comptable/paiements.php', 'icon' => '💳'],
+        ['label' => 'Situations', 'url' => BASE_URL . 'views/comptable/situations.php', 'icon' => '📊'],
+        ['label' => 'Rémunérations', 'url' => BASE_URL . 'views/comptable/remunerations.php', 'icon' => '💰'],
     ],
     'administrateur' => [
-        ['label' => 'Utilisateurs', 'url' => '/admin/utilisateurs.php', 'icon' => '👥'],
-        ['label' => 'Rôles & accès', 'url' => '/admin/roles.php', 'icon' => '🔐'],
-        ['label' => 'Journal', 'url' => '/admin/journal.php', 'icon' => '📜'],
+        ['label' => 'Utilisateurs', 'url' => BASE_URL . 'admin/utilisateurs.php', 'icon' => '👥'],
+        ['label' => 'Rôles & accès', 'url' => BASE_URL . 'admin/roles.php', 'icon' => '🔐'],
+        ['label' => 'Journal', 'url' => BASE_URL . 'admin/journal.php', 'icon' => '📜'],
     ],
     'directeur' => [
-        ['label' => 'Tableau de bord', 'url' => '/directeur/dashboard.php', 'icon' => '📈'],
-        ['label' => 'Personnel', 'url' => '/directeur/personnel.php', 'icon' => '👥'],
+        ['label' => 'Tableau de bord', 'url' => BASE_URL . 'views/directeur/dashboard.php', 'icon' => '📈'],
+        ['label' => 'Personnel', 'url' => BASE_URL . 'views/directeur/personnel.php', 'icon' => '👥'],
     ],
 ];
 
@@ -73,4 +75,4 @@ $pageActuelle = basename($_SERVER['PHP_SELF'] ?? '');
     </ul>
 </nav>
 
-<script src="/assets/js/navebar.js"></script>
+<script src="<?php echo htmlspecialchars(BASE_URL . 'assets/js/navebar.js'); ?>"></script>

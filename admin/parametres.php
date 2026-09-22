@@ -1,0 +1,4 @@
+<?php
+require_once __DIR__ . '/../controllers/helpers.php'; requireRole(['administrateur']);
+$pageTitle='Paramètres'; $activeMenu='parametres'; $contentClass = 'management-content'; require __DIR__ . '/../includes/header.php';
+?><div class="card"><h2>Paramètres de la plateforme</h2><p>La configuration active est chargée depuis l’environnement de l’application et la base GestForm.</p><p><strong>Base de données :</strong> GestForm</p><p><strong>Pays :</strong> Sénégal</p><p><strong>Fuseau horaire :</strong> <?= htmlspecialchars(date_default_timezone_get()) ?> (UTC+00:00)</p></div><?php require __DIR__ . '/../includes/footer.php'; ?>

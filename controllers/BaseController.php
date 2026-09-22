@@ -7,7 +7,11 @@ abstract class BaseController
 {
     protected function redirect(string $path): void
     {
-        header('Location: ' . $path);
+        $target = $path;
+        if (!preg_match('/^(https?:)?\/\//', $target) && strpos($target, BASE_URL) !== 0) {
+            $target = BASE_URL . ltrim($target, '/');
+        }
+        header('Location: ' . $target);
         exit;
     }
 
@@ -28,7 +32,7 @@ abstract class BaseController
     protected function requireRole(array $rolesAutorises): array
     {
         if (!isset($_SESSION['user']) || !in_array($_SESSION['user']['role'], $rolesAutorises, true)) {
-            $this->redirect('/views/auth/login.php');
+            $this->redirect('views/auth/login.php');
         }
         return $_SESSION['user'];
     }
