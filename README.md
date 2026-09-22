@@ -23,6 +23,7 @@ GestForm est une application web PHP de gestion de formation développée dans l
 3. Vérifiez les paramètres de connexion dans `config/database.php`.
 4. Lancez l'application avec `php -S localhost:8000` depuis la racine du projet.
 
+<<<<<<< HEAD
 ### Configuration de la base de données
 
 La connexion utilise par défaut `127.0.0.1:3306`, la base `gestform`, l'utilisateur `root` et un mot de passe vide. Pour personnaliser ces valeurs, copiez `.env.example` vers `.env` puis modifiez-le. Le fichier `.env` reste local et ne doit pas être envoyé sur GitHub.
@@ -36,6 +37,8 @@ php -S localhost:8000
 
 Le fichier SQL est importé automatiquement au premier démarrage du conteneur. Sans Docker, démarrez le service MySQL/MariaDB installé sur votre ordinateur, créez la base `gestform`, puis importez `databases/gestform.sql`.
 
+=======
+>>>>>>> 5afcf4e06df978dbe79398a368641aed31957b21
 ### Comptes de démonstration
 
 Après l'import de `databases/gestform.sql`, les comptes suivants sont disponibles :

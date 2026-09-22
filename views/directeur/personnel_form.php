@@ -46,5 +46,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 $pageTitle = $edition ? 'Modifier le personnel' : 'Ajouter un membre'; $activeMenu = 'personnel'; $contentClass = 'director-content'; require __DIR__ . '/../../includes/header.php';
 ?>
-<div class="card director-panel personnel-form"><div class="director-heading"><div><h2><?= htmlspecialchars($pageTitle) ?></h2><p>Les informations seront enregistrées dans les comptes du centre.</p></div></div><?php if ($erreur): ?><p style="color:#b42318"><?= htmlspecialchars($erreur) ?></p><?php endif; ?><form method="post"><div class="director-form-grid"><label>Nom<input name="nom" required value="<?= htmlspecialchars($personnel['nom']) ?>"></label><label>Prénom<input name="prenom" required value="<?= htmlspecialchars($personnel['prenom']) ?>"></label><label>E-mail<input type="email" name="email" required value="<?= htmlspecialchars($personnel['email']) ?>"></label><label>Téléphone<input name="telephone" value="<?= htmlspecialchars($personnel['telephone'] ?? '') ?>"></label><?php if (!$edition): ?><label>Rôle<select name="role" required><?php foreach ($roles as $cle=>$libelle): ?><option value="<?= $cle ?>"><?= htmlspecialchars($libelle) ?></option><?php endforeach; ?></select></label><?php endif; ?></div><div class="form-actions"><button class="btn" type="submit">Enregistrer</button><a class="btn" href="<?= htmlspecialchars(BASE_URL . 'views/directeur/personnel.php') ?>">Annuler</a></div></form></div>
+<div class="card director-panel personnel-form">
+    <div class="director-heading">
+        <div>
+            <h2><?= htmlspecialchars($pageTitle) ?></h2>
+            <p>Créez un accès professionnel avec un rôle clairement défini.</p>
+        </div>
+    </div>
+    <?php if ($erreur): ?><p class="director-form-error" role="alert"><?= htmlspecialchars($erreur) ?></p><?php endif; ?>
+    <form method="post">
+        <div class="director-form-grid">
+            <label>Nom<input name="nom" required value="<?= htmlspecialchars($personnel['nom']) ?>"></label>
+            <label>Prénom<input name="prenom" required value="<?= htmlspecialchars($personnel['prenom']) ?>"></label>
+            <label>E-mail<input type="email" name="email" required value="<?= htmlspecialchars($personnel['email']) ?>"></label>
+            <label>Téléphone<input name="telephone" value="<?= htmlspecialchars($personnel['telephone'] ?? '') ?>"></label>
+            <?php if (!$edition): ?>
+                <label>Rôle<select name="role" required><?php foreach ($roles as $cle => $libelle): ?><option value="<?= $cle ?>" <?= $cle === 'formateur' ? 'selected' : '' ?>><?= htmlspecialchars($libelle) ?></option><?php endforeach; ?></select></label>
+            <?php endif; ?>
+        </div>
+        <div class="form-actions">
+            <button class="btn" type="submit">Enregistrer le membre</button>
+            <a class="btn" href="<?= htmlspecialchars(BASE_URL . 'views/directeur/personnel.php') ?>">Annuler</a>
+        </div>
+    </form>
+</div>
 <?php require __DIR__ . '/../../includes/footer.php'; ?>

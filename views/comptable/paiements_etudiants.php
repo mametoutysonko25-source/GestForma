@@ -5,15 +5,8 @@ require_once __DIR__ . '/../../config/app.php';
 require_once __DIR__ . '/../../controllers/PaiementController.php';
 
 // Garde d'accès : seul le comptable peut voir cette page.
-// À VÉRIFIER : la clé exacte de $_SESSION['user']['role'] selon config/session.php
-if (!isset($_SESSION['user']['role']) || $_SESSION['user']['role'] !== 'comptable') {
-<<<<<<< HEAD
-    header('Location: ' . BASE_URL . 'views/auth/login.php');
-=======
-    header('Location: /views/auth/login.php');
->>>>>>> 5afcf4e06df978dbe79398a368641aed31957b21
-    exit;
-}
+require_once __DIR__ . '/../../controllers/helpers.php';
+requireRole(['comptable']);
 
 $controller = new PaiementController();
 $inscriptions = $controller->getInscriptionsValidees();

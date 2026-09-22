@@ -7,6 +7,7 @@ $pageActuelle = basename($_SERVER['PHP_SELF'] ?? '');
 
 $menuParRole = [
     'etudiant' => [
+<<<<<<< HEAD
         ['label' => 'Tableau de bord', 'url' => BASE_URL . 'views/etudiant/dashboard.php', 'icon' => '📊'],
         ['label' => 'Mon dossier', 'url' => BASE_URL . 'views/etudiant/dossier.php', 'icon' => '📁'],
         ['label' => 'Emploi du temps', 'url' => BASE_URL . 'etudiant/planning.php', 'icon' => '🗓️'],
@@ -16,6 +17,17 @@ $menuParRole = [
         ['label' => 'Dépôt de travail', 'url' => BASE_URL . 'etudiant/depot.php', 'icon' => '📤'],
         ['label' => 'Résultats', 'url' => BASE_URL . 'etudiant/resultats.php', 'icon' => '🏆'],
         ['label' => 'Situation financière', 'url' => BASE_URL . 'etudiant/finance.php', 'icon' => '💳'],
+=======
+        ['label' => 'Tableau de bord', 'url' => '/views/etudiant/dashboard.php', 'icon' => '📊'],
+        ['label' => 'Mon dossier', 'url' => '/views/etudiant/dossier.php', 'icon' => '📁'],
+        ['label' => 'Emploi du temps', 'url' => '/etudiant/planning.php', 'icon' => '🗓️'],
+        ['label' => 'Modules', 'url' => '/etudiant/modules.php', 'icon' => '📚'],
+        ['label' => 'Supports de cours', 'url' => '/etudiant/supports.php', 'icon' => '📄'],
+        ['label' => 'Évaluations', 'url' => '/etudiant/evaluations.php', 'icon' => '📝'],
+        ['label' => 'Dépôt de travail', 'url' => '/etudiant/depot.php', 'icon' => '📤'],
+        ['label' => 'Résultats', 'url' => '/etudiant/resultats.php', 'icon' => '🏆'],
+        ['label' => 'Situation financière', 'url' => '/etudiant/finance.php', 'icon' => '💳'],
+>>>>>>> 5afcf4e06df978dbe79398a368641aed31957b21
     ],
     'formateur' => [
         ['label' => 'Mes modules', 'url' => BASE_URL . 'views/formateur/modules.php', 'icon' => '📚'],
@@ -43,10 +55,17 @@ $menuParRole = [
     ],
 
     'comptable' => [
+<<<<<<< HEAD
         ['label' => 'Paiements étudiants', 'url' => BASE_URL . 'views/comptable/paiements.php', 'icon' => '💳'],
         ['label' => 'Situations financières', 'url' => BASE_URL . 'views/comptable/situations.php', 'icon' => '📊'],
         ['label' => 'Impayés', 'url' => BASE_URL . 'views/comptable/impayes.php', 'icon' => '⚠️'],
         ['label' => 'Rémunérations', 'url' => BASE_URL . 'views/comptable/remunerations.php', 'icon' => '💰'],
+=======
+        ['label' => 'Paiements étudiants', 'url' => '/views/comptable/paiements.php', 'icon' => '💳'],
+        ['label' => 'Situations financières', 'url' => '/views/comptable/situations.php', 'icon' => '📊'],
+        ['label' => 'Impayés', 'url' => '/views/comptable/impayes.php', 'icon' => '⚠️'],
+        ['label' => 'Rémunérations', 'url' => '/views/comptable/remunerations.php', 'icon' => '💰'],
+>>>>>>> 5afcf4e06df978dbe79398a368641aed31957b21
     ],
     'administrateur' => [
         ['label' => 'Utilisateurs', 'url' => BASE_URL . 'admin/utilisateurs.php', 'icon' => '👥'],
