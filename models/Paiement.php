@@ -9,24 +9,48 @@ class Paiement {
     public $modePaiement;
     public $reference;
     public $idInscription;
+    private $referenceColumn;
 
     public function __construct($db) {
         $this->conn = $db;
+		$this->referenceColumn = null;
+		foreach ($this->conn->query('SHOW COLUMNS FROM PAIEMENT')->fetchAll(PDO::FETCH_ASSOC) as $column) {
+			if (in_array(strtolower($column['Field']), ['reference', 'referencepaiement'], true)) {
+				$this->referenceColumn = $column['Field'];
+				break;
+			}
+		}
     }
 
     public function enregistrerPaiement($montant, $modePaiement, $reference, $idInscription) {
-        $query = "INSERT INTO " . $this->table . " (montant, modePaiement, reference, idInscription) 
-                  VALUES (:montant, :modePaiement, :reference, :idInscription)";
+        $colonnes = ['montant', 'modePaiement', 'datePaiement', 'idInscription'];
+        $valeurs = [':montant', ':modePaiement', 'CURRENT_TIMESTAMP', ':idInscription'];
+        if ($this->referenceColumn !== null) {
+            $colonnes[] = '`' . $this->referenceColumn . '`';
+            $valeurs[] = ':reference';
+        }
+        $query = 'INSERT INTO ' . $this->table . ' (' . implode(', ', $colonnes) . ') VALUES (' . implode(', ', $valeurs) . ')';
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(":montant", $montant);
         $stmt->bindParam(":modePaiement", $modePaiement);
-        $stmt->bindParam(":reference", $reference);
         $stmt->bindParam(":idInscription", $idInscription);
+        if ($this->referenceColumn !== null) {
+            $reference = trim((string) $reference);
+            $reference = $reference !== '' ? $reference : null;
+            $stmt->bindParam(":reference", $reference);
+        }
         return $stmt->execute();
     }
 
+    private function referenceSelect(string $alias = ''): string {
+        $prefix = $alias !== '' ? $alias . '.' : '';
+        return $this->referenceColumn === null
+            ? 'NULL AS reference'
+            : $prefix . '`' . $this->referenceColumn . '` AS reference';
+    }
+
     public function getPaiementsByInscription($idInscription) {
-        $query = "SELECT * FROM " . $this->table . " WHERE idInscription = :idInscription ORDER BY datePaiement DESC";
+        $query = "SELECT p.*, " . $this->referenceSelect('p') . " FROM " . $this->table . " p WHERE p.idInscription = :idInscription ORDER BY p.datePaiement DESC";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(":idInscription", $idInscription);
         $stmt->execute();
@@ -43,7 +67,7 @@ class Paiement {
     }
 
     public function getAllPaiements() {
-        $query = "SELECT p.*, i.idInscription, i.statut AS statut_inscription,
+        $query = "SELECT p.*, " . $this->referenceSelect('p') . ", i.idInscription, i.statut AS statut_inscription,
                          d.anneeScolaire, e.matricule, u.nom, u.prenom, u.email,
                          n.libelle AS niveau_libelle
                   FROM " . $this->table . " p

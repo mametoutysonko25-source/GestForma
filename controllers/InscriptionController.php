@@ -16,7 +16,7 @@ class InscriptionController {
     }
 
     public function demanderInscription($idEtudiant, $idNiveau, $anneeScolaire) {
-        $dossier = $this->dossierModel->getDossierByEtudiant($idEtudiant);
+        $dossier = $this->dossierModel->getDossierByEtudiantEtAnnee($idEtudiant, $anneeScolaire);
         
         if (!$dossier) {
             $this->dossierModel->creerDossier($idEtudiant, $anneeScolaire);

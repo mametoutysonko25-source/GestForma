@@ -9,13 +9,9 @@ $menuParRole = [
     'etudiant' => [
         ['label' => 'Tableau de bord', 'url' => BASE_URL . 'views/etudiant/dashboard.php', 'icon' => '📊'],
         ['label' => 'Mon dossier', 'url' => BASE_URL . 'views/etudiant/dossier.php', 'icon' => '📁'],
-        ['label' => 'Emploi du temps', 'url' => BASE_URL . 'etudiant/planning.php', 'icon' => '🗓️'],
-        ['label' => 'Modules', 'url' => BASE_URL . 'etudiant/modules.php', 'icon' => '📚'],
-        ['label' => 'Supports de cours', 'url' => BASE_URL . 'etudiant/supports.php', 'icon' => '📄'],
-        ['label' => 'Évaluations', 'url' => BASE_URL . 'etudiant/evaluations.php', 'icon' => '📝'],
-        ['label' => 'Dépôt de travail', 'url' => BASE_URL . 'etudiant/depot.php', 'icon' => '📤'],
-        ['label' => 'Résultats', 'url' => BASE_URL . 'etudiant/resultats.php', 'icon' => '🏆'],
-        ['label' => 'Situation financière', 'url' => BASE_URL . 'etudiant/finance.php', 'icon' => '💳'],
+        ['label' => 'Demande d\'inscription', 'url' => BASE_URL . 'views/etudiant/demande_inscription.php', 'icon' => '📝'],
+        ['label' => 'État de l\'inscription', 'url' => BASE_URL . 'views/etudiant/etat_inscription.php', 'icon' => '✅'],
+        ['label' => 'Situation financière', 'url' => BASE_URL . 'views/etudiant/finance.php', 'icon' => '💳'],
     ],
     'formateur' => [
         ['label' => 'Mes modules', 'url' => BASE_URL . 'views/formateur/modules.php', 'icon' => '📚'],
@@ -39,13 +35,16 @@ $menuParRole = [
         ['label' => 'Affectations', 'url' => BASE_URL . 'views/responsable/affectation.php', 'icon' => '👥'],
         ['label' => 'Planning', 'url' => BASE_URL . 'views/responsable/planning.php', 'icon' => '🗓️'],
         ['label' => 'Présences', 'url' => BASE_URL . 'views/responsable/presences.php', 'icon' => '✅'],
+        ['label' => 'Feuille d\'appel', 'url' => BASE_URL . 'views/formateur/appel.php', 'icon' => '📋'],
         ['label' => 'Résultats', 'url' => BASE_URL . 'views/responsable/resultats.php', 'icon' => '📊'],
     ],
 
     'comptable' => [
+        ['label' => 'Tableau de bord', 'url' => BASE_URL . 'views/comptable/dashboard.php', 'icon' => '📊'],
         ['label' => 'Paiements étudiants', 'url' => BASE_URL . 'views/comptable/paiements.php', 'icon' => '💳'],
-        ['label' => 'Situations financières', 'url' => BASE_URL . 'views/comptable/situations.php', 'icon' => '📊'],
+        ['label' => 'Enregistrer paiement', 'url' => BASE_URL . 'views/comptable/enregistrer_paiement.php', 'icon' => '🧾'],
         ['label' => 'Impayés', 'url' => BASE_URL . 'views/comptable/impayes.php', 'icon' => '⚠️'],
+        ['label' => 'Situations financières', 'url' => BASE_URL . 'views/comptable/situations.php', 'icon' => '📉'],
         ['label' => 'Rémunérations', 'url' => BASE_URL . 'views/comptable/remunerations.php', 'icon' => '💰'],
     ],
     'administrateur' => [

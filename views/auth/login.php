@@ -51,8 +51,7 @@ $roles = [
             <div class="role-pills">
                 <?php foreach ($roles as $value => $label): ?>
                     <label class="role-pill">
-                        <input type="radio" name="role" value="<?= $value ?>" style="display:none;"
-                               <?= $value === 'etudiant' ? 'checked' : '' ?>>
+                        <input type="radio" name="role" value="<?= $value ?>" style="display:none;" required>
                         <?= htmlspecialchars($label) ?>
                     </label>
                 <?php endforeach; ?>
@@ -86,7 +85,6 @@ document.querySelectorAll('.role-pill').forEach(function (pill) {
         pill.querySelector('input').checked = true;
     });
 });
-document.querySelector('.role-pill')?.classList.add('active');
 </script>
 
 <?php require __DIR__ . '/../../includes/footer.php'; ?>

@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'statu
 }
 
 $utilisateurs = $db->query(
-    "SELECT u.idUtilisateur, u.prenom, u.nom, u.email, u.telephone, u.nomUtilisateur, u.statutCompte,
+    "SELECT u.idUtilisateur, u.prenom, u.nom, u.email, u.telephone, u.nomUtilisateur, u.statutCompte, u.derniereConnexion,
         CASE
             WHEN a.idUtilisateur IS NOT NULL THEN 'Administrateur'
             WHEN d.idUtilisateur IS NOT NULL THEN 'Directeur'
@@ -44,9 +44,9 @@ $contentClass = 'management-content';
 require __DIR__ . '/../includes/header.php';
 ?>
 <div class="director-heading"><div><h2>Utilisateurs</h2><p><?= count($utilisateurs) ?> comptes réels enregistrés.</p></div><a class="btn btn-primary" href="<?= htmlspecialchars(BASE_URL . 'admin/utilisateur_form.php') ?>">Ajouter un utilisateur</a></div>
-<div class="card table-card"><table class="director-table"><thead><tr><th>Nom</th><th>Identifiant</th><th>Rôle</th><th>E-mail</th><th>Statut</th><th>Actions</th></tr></thead><tbody>
+<div class="card table-card"><table class="director-table"><thead><tr><th>Nom</th><th>Identifiant</th><th>Rôle</th><th>E-mail</th><th>Dernière connexion</th><th>Statut</th><th>Actions</th></tr></thead><tbody>
 <?php foreach ($utilisateurs as $utilisateur): ?><tr>
-<td><strong><?= htmlspecialchars($utilisateur['prenom'] . ' ' . $utilisateur['nom']) ?></strong></td><td><?= htmlspecialchars($utilisateur['nomUtilisateur']) ?></td><td><span class="role-badge"><?= htmlspecialchars($utilisateur['role']) ?></span></td><td><?= htmlspecialchars($utilisateur['email']) ?></td><td><span class="status-badge status-<?= strtolower($utilisateur['statutCompte']) ?>"><?= htmlspecialchars($utilisateur['statutCompte']) ?></span></td><td class="actions-cell">
+<td><strong><?= htmlspecialchars($utilisateur['prenom'] . ' ' . $utilisateur['nom']) ?></strong></td><td><?= htmlspecialchars($utilisateur['nomUtilisateur']) ?></td><td><span class="role-badge"><?= htmlspecialchars($utilisateur['role']) ?></span></td><td><?= htmlspecialchars($utilisateur['email']) ?></td><td><?= $utilisateur['derniereConnexion'] ? htmlspecialchars($utilisateur['derniereConnexion']) : '<span style="color:var(--muted);">Jamais</span>' ?></td><td><span class="status-badge status-<?= strtolower($utilisateur['statutCompte']) ?>"><?= htmlspecialchars($utilisateur['statutCompte']) ?></span></td><td class="actions-cell">
 <a class="btn btn-small btn-secondary" href="<?= htmlspecialchars(BASE_URL . 'admin/utilisateur_form.php?id=' . $utilisateur['idUtilisateur']) ?>">Modifier</a>
 <?php if ((int) $utilisateur['idUtilisateur'] !== (int) $currentUser['id']): ?><form method="post" class="inline-form"><input type="hidden" name="action" value="statut"><input type="hidden" name="idUtilisateur" value="<?= (int) $utilisateur['idUtilisateur'] ?>"><input type="hidden" name="statut" value="<?= $utilisateur['statutCompte'] === 'ACTIF' ? 'INACTIF' : 'ACTIF' ?>"><button class="btn btn-small <?= $utilisateur['statutCompte'] === 'ACTIF' ? 'btn-danger' : 'btn-success' ?>" type="submit"><?= $utilisateur['statutCompte'] === 'ACTIF' ? 'Désactiver' : 'Activer' ?></button></form><?php endif; ?>
 </td></tr><?php endforeach; ?></tbody></table></div>

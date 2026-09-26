@@ -196,6 +196,25 @@ CREATE TABLE `historique` (
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `historique_archive`
+--
+
+CREATE TABLE `historique_archive` (
+  `idHistorique` int(11) NOT NULL,
+  `utilisateurId` int(11) NOT NULL,
+  `action` varchar(255) NOT NULL,
+  `dateAction` datetime NOT NULL,
+  `details` text DEFAULT NULL,
+  `dateArchivage` datetime NOT NULL DEFAULT current_timestamp(),
+  `archivePar` int(11) NOT NULL,
+  PRIMARY KEY (`idHistorique`),
+  KEY `utilisateurId` (`utilisateurId`),
+  KEY `archivePar` (`archivePar`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `inscription`
 --
 
@@ -357,6 +376,7 @@ CREATE TABLE `semestre` (
 CREATE TABLE `support` (
   `idSupport` int(11) NOT NULL,
   `idModule` int(11) NOT NULL,
+  `idEvaluation` int(11) DEFAULT NULL,
   `titre` varchar(200) NOT NULL,
   `type` varchar(50) NOT NULL,
   `fichier` varchar(255) NOT NULL,
@@ -543,7 +563,8 @@ ALTER TABLE `semestre`
 --
 ALTER TABLE `support`
   ADD PRIMARY KEY (`idSupport`),
-  ADD KEY `idModule` (`idModule`);
+  ADD KEY `idModule` (`idModule`),
+  ADD KEY `idEvaluation` (`idEvaluation`);
 
 --
 -- Index pour la table `utilisateur`
@@ -781,7 +802,8 @@ ALTER TABLE `semestre`
 -- Contraintes pour la table `support`
 --
 ALTER TABLE `support`
-  ADD CONSTRAINT `support_ibfk_1` FOREIGN KEY (`idModule`) REFERENCES `module` (`idModule`) ON DELETE CASCADE;
+  ADD CONSTRAINT `support_ibfk_1` FOREIGN KEY (`idModule`) REFERENCES `module` (`idModule`) ON DELETE CASCADE,
+  ADD CONSTRAINT `support_ibfk_2` FOREIGN KEY (`idEvaluation`) REFERENCES `evaluation` (`idEvaluation`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -22,23 +22,30 @@ if (isset($_GET['idInscription'])) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $montant = $_POST['montant'];
-    $modePaiement = $_POST['modePaiement'];
-    $reference = $_POST['reference'];
-    $idInscription = $_POST['idInscription'];
+    $montant = (float) ($_POST['montant'] ?? 0);
+    $modePaiement = $_POST['modePaiement'] ?? '';
+    $reference = trim((string) ($_POST['reference'] ?? ''));
+    $idInscription = (int) ($_POST['idInscription'] ?? 0);
 
-    if ($controller->enregistrerPaiement($montant, $modePaiement, $reference, $idInscription)) {
-        $message = "Paiement enregistré avec succès.";
-        // On recharge l'inscription pour rafraîchir le total payé affiché
-        $inscriptions = $controller->getInscriptionsValidees();
-        foreach ($inscriptions as $ins) {
-            if ($ins['idInscription'] == $idInscription) {
-                $inscription = $ins;
-                break;
-            }
-        }
+    if ($montant <= 0 || $idInscription <= 0 || !in_array($modePaiement, ['ESPECES', 'CHEQUE', 'VIREMENT', 'CARTE', 'MOBILE_MONEY'], true)) {
+        $erreur = 'Veuillez vérifier le montant, le mode de paiement et l’inscription sélectionnée.';
     } else {
-        $erreur = "Une erreur est survenue lors de l'enregistrement du paiement.";
+        try {
+            if ($controller->enregistrerPaiement($montant, $modePaiement, $reference, $idInscription)) {
+                $message = "Paiement enregistré avec succès.";
+                $inscriptions = $controller->getInscriptionsValidees();
+                foreach ($inscriptions as $ins) {
+                    if ((int) $ins['idInscription'] === $idInscription) {
+                        $inscription = $ins;
+                        break;
+                    }
+                }
+            } else {
+                $erreur = "Une erreur est survenue lors de l'enregistrement du paiement.";
+            }
+        } catch (Throwable $exception) {
+            $erreur = "Le paiement n’a pas pu être enregistré. Vérifiez que l’inscription est toujours valide et que la référence n’est pas déjà utilisée.";
+        }
     }
 }
 

@@ -12,9 +12,9 @@ $liensCommuns = [
 $liensParRole = [
     'etudiant' => [
         ['label' => 'Mon dossier', 'url' => BASE_URL . 'views/etudiant/dossier.php', 'icon' => '📁'],
-        ['label' => 'Emploi du temps', 'url' => BASE_URL . 'etudiant/planning.php', 'icon' => '🗓️'],
-        ['label' => 'Modules', 'url' => BASE_URL . 'etudiant/modules.php', 'icon' => '📚'],
-        ['label' => 'Résultats', 'url' => BASE_URL . 'etudiant/resultats.php', 'icon' => '📊'],
+        ['label' => 'Emploi du temps', 'url' => BASE_URL . 'views/etudiant/planning.php', 'icon' => '🗓️'],
+        ['label' => 'Modules', 'url' => BASE_URL . 'views/etudiant/modules.php', 'icon' => '📚'],
+        ['label' => 'Résultats', 'url' => BASE_URL . 'views/etudiant/resultats.php', 'icon' => '📊'],
     ],
     'formateur' => [
         ['label' => 'Mes modules', 'url' => BASE_URL . 'views/formateur/modules.php', 'icon' => '📚'],

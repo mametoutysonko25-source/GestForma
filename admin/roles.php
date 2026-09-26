@@ -32,9 +32,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			}
 			$table = $roles[$role];
 			if (in_array($role, ['Formateur', 'Responsable pédagogique', 'Étudiant'], true)) {
-				$prefixe = $role === 'Formateur' ? 'FOR' : ($role === 'Responsable pédagogique' ? 'RP' : 'ETU');
+				$prefixe = $role === 'Formateur' ? 'FOR' : ($role === 'Responsable pédagogique' ? 'RP' : 'Etu');
 				$requete = $db->prepare('INSERT INTO ' . $table . ' (idUtilisateur, matricule) VALUES (:id, :matricule)');
-				$requete->execute(['id' => $id, 'matricule' => $prefixe . str_pad((string) $id, 3, '0', STR_PAD_LEFT)]);
+				$requete->execute(['id' => $id, 'matricule' => $prefixe . str_pad((string) $id, 6, '0', STR_PAD_LEFT)]);
 			} else {
 				$requete = $db->prepare('INSERT INTO ' . $table . ' (idUtilisateur) VALUES (:id)');
 				$requete->execute(['id' => $id]);

@@ -2,6 +2,7 @@
 
 require_once __DIR__ . '/BaseController.php';
 require_once __DIR__ . '/Router.php';
+require_once __DIR__ . '/helpers.php';
 require_once __DIR__ . '/../models/Utilisateur.php';
 
 class AuthController extends BaseController
@@ -38,6 +39,7 @@ class AuthController extends BaseController
         regenerateSession();
         try {
             User::updateLastLogin((int) $user['idUtilisateur']);
+            journaliserAction('Connexion', 'Connexion réussie le ' . date('d/m/Y à H:i:s'), (int) $user['idUtilisateur']);
         } catch (PDOException $exception) {
             $erreur = (int) $exception->getCode() === 2002
                 ? 'serveur_bdd_arrete'
@@ -61,6 +63,9 @@ class AuthController extends BaseController
 
     public function logout(): void
     {
+        if (isset($_SESSION['user']['id'])) {
+            journaliserAction('Déconnexion', 'Déconnexion demandée le ' . date('d/m/Y à H:i:s'), (int) $_SESSION['user']['id']);
+        }
         $_SESSION = [];
         if (ini_get('session.use_cookies')) {
             $params = session_get_cookie_params();

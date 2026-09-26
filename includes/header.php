@@ -18,7 +18,7 @@ $flashError = consumeFlash('error');
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GestForm<?php echo isset($titrePage) ? ' - ' . htmlspecialchars($titrePage) : ''; ?></title>
+    <title>GestForm<?php echo isset($pageTitle) ? ' - ' . htmlspecialchars($pageTitle) : ''; ?></title>
     <link rel="stylesheet" href="<?php echo htmlspecialchars(BASE_URL . 'assets/css/style.css'); ?>">
     <link rel="stylesheet" href="<?php echo htmlspecialchars(BASE_URL . 'assets/css/header.css'); ?>">
     <link rel="stylesheet" href="<?php echo htmlspecialchars(BASE_URL . 'assets/css/navebar.css'); ?>">
@@ -31,6 +31,9 @@ $flashError = consumeFlash('error');
     <?php if ($contentClass === 'director-content' || $contentClass === 'management-content'): ?>
         <link rel="stylesheet" href="<?php echo htmlspecialchars(BASE_URL . 'assets/css/management-content.css'); ?>">
     <?php endif; ?>
+    <?php if ($contentClass === 'home-page'): ?>
+        <link rel="stylesheet" href="<?php echo htmlspecialchars(BASE_URL . 'assets/css/home.css'); ?>">
+    <?php endif; ?>
 </head>
 
 <body>
@@ -38,34 +41,36 @@ $flashError = consumeFlash('error');
     <header class="gf-header">
         <div class="gf-header__left">
             <a href="<?php echo htmlspecialchars(BASE_URL); ?>" class="gf-header__logo">
-                <img src="<?php echo htmlspecialchars(BASE_URL . 'assets/images/test.png'); ?>" alt="GestForm" class="gf-header__logo-img">
+                <span class="gf-header__logo-mark" aria-hidden="true">G</span>
                 <span class="gf-header__logo-text">GestForm</span>
             </a>
         </div>
 
         <div class="gf-header__right">
-            <button class="gf-header__icon-btn" id="btn-notifications" aria-label="Notifications">
-                🔔
-                <?php if ($nombreNotifications > 0): ?>
-                    <span class="gf-badge"><?php echo (int) $nombreNotifications; ?></span>
-                <?php endif; ?>
-            </button>
-
-            <div class="gf-header__user">
-                <span class="gf-header__user-name"><?php echo htmlspecialchars($nomUtilisateur); ?></span>
-                <span class="gf-header__user-role"><?php echo htmlspecialchars($roleUtilisateur); ?></span>
-            </div>
-
-            <div class="gf-header__dropdown">
-                <button class="gf-header__avatar-btn" id="btn-user-menu" aria-label="Menu utilisateur">
-                    <img src="<?php echo htmlspecialchars(BASE_URL . 'assets/images/test.png'); ?>" alt="Avatar" class="gf-header__avatar">
+            <?php if (isset($_SESSION['user'])): ?>
+                <button class="gf-header__icon-btn" id="btn-notifications" aria-label="Notifications">
+                    🔔
+                    <?php if ($nombreNotifications > 0): ?>
+                        <span class="gf-badge"><?php echo (int) $nombreNotifications; ?></span>
+                    <?php endif; ?>
                 </button>
-                <ul class="gf-header__dropdown-menu" id="user-menu">
-                    <li><a href="<?php echo htmlspecialchars(BASE_URL . 'shared/profil.php'); ?>">Mon profil</a></li>
-                    <li><a href="<?php echo htmlspecialchars(BASE_URL . 'shared/parametres.php'); ?>">Paramètres</a></li>
-                    <li><a href="<?php echo htmlspecialchars(BASE_URL . 'controllers/AuthController.php?action=logout'); ?>">Déconnexion</a></li>
-                </ul>
-            </div>
+                <div class="gf-header__user">
+                    <span class="gf-header__user-name"><?php echo htmlspecialchars($nomUtilisateur); ?></span>
+                    <span class="gf-header__user-role"><?php echo htmlspecialchars($roleUtilisateur); ?></span>
+                </div>
+                <div class="gf-header__dropdown">
+                    <button class="gf-header__avatar-btn" id="btn-user-menu" aria-label="Menu utilisateur">
+                        <span class="gf-header__avatar" aria-hidden="true"><?php echo htmlspecialchars(strtoupper(substr($nomUtilisateur, 0, 1))); ?></span>
+                    </button>
+                    <ul class="gf-header__dropdown-menu" id="user-menu">
+                        <li><a href="<?php echo htmlspecialchars(BASE_URL . 'shared/profil.php'); ?>">Mon profil</a></li>
+                        <li><a href="<?php echo htmlspecialchars(BASE_URL . 'shared/parametres.php'); ?>">Paramètres</a></li>
+                        <li><a href="<?php echo htmlspecialchars(BASE_URL . 'controllers/AuthController.php?action=logout'); ?>">Déconnexion</a></li>
+                    </ul>
+                </div>
+            <?php else: ?>
+                <a class="gf-header__login" href="<?php echo htmlspecialchars(BASE_URL . 'views/auth/login.php'); ?>">Connexion</a>
+            <?php endif; ?>
         </div>
     </header>
 

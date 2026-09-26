@@ -21,14 +21,22 @@
     color: inherit;
 }
 
-.gf-header__logo-img {
-    height: 32px;
+.gf-header__logo-mark {
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+    background: #438ac5;
+    color: #fff;
+    font-weight: 800;
+    font-size: 1.1rem;
 }
 
 .gf-header__logo-text {
     font-weight: 700;
     font-size: 1.25rem;
-    color: #1e3a8a;
+    color: #387fb5;
 }
 
 .gf-header__right {
@@ -86,11 +94,15 @@
 }
 
 .gf-header__avatar {
+    display: grid;
+    place-items: center;
     width: 36px;
     height: 36px;
     border-radius: 50%;
-    object-fit: cover;
+    background: #dce8e5;
+    color: #174d46;
     border: 2px solid #e5e7eb;
+    font-weight: 700;
 }
 
 .gf-header__dropdown-menu {
@@ -122,4 +134,19 @@
 
 .gf-header__dropdown-menu li a:hover {
     background-color: #f3f4f6;
+}
+
+.gf-header__login {
+    border: 1px solid #438ac5;
+    border-radius: 5px;
+    padding: 9px 16px;
+    color: #387fb5;
+    font-size: 0.9rem;
+    font-weight: 650;
+    text-decoration: none;
+}
+
+.gf-header__login:hover {
+    background: #438ac5;
+    color: #fff;
 }
