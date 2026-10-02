@@ -11,6 +11,9 @@ $menuParRole = [
         ['label' => 'Mon dossier', 'url' => BASE_URL . 'views/etudiant/dossier.php', 'icon' => '📁'],
         ['label' => 'Demande d\'inscription', 'url' => BASE_URL . 'views/etudiant/demande_inscription.php', 'icon' => '📝'],
         ['label' => 'État de l\'inscription', 'url' => BASE_URL . 'views/etudiant/etat_inscription.php', 'icon' => '✅'],
+        ['label' => 'Voir mes cours', 'url' => BASE_URL . 'views/etudiant/cours.php', 'icon' => '📚'],
+        ['label' => 'Mes évaluations', 'url' => BASE_URL . 'views/etudiant/evaluations.php', 'icon' => '📝'],
+        ['label' => 'Rendre une évaluation', 'url' => BASE_URL . 'views/etudiant/depot.php', 'icon' => '📤'],
         ['label' => 'Situation financière', 'url' => BASE_URL . 'views/etudiant/finance.php', 'icon' => '💳'],
     ],
     'formateur' => [

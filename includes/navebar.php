@@ -11,21 +11,21 @@ $liensCommuns = [
 
 $liensParRole = [
     'etudiant' => [
-        ['label' => 'Mon dossier', 'url' => BASE_URL . 'views/etudiant/dossier.php', 'icon' => '📁'],
-        ['label' => 'Emploi du temps', 'url' => BASE_URL . 'views/etudiant/planning.php', 'icon' => '🗓️'],
-        ['label' => 'Modules', 'url' => BASE_URL . 'views/etudiant/modules.php', 'icon' => '📚'],
-        ['label' => 'Résultats', 'url' => BASE_URL . 'views/etudiant/resultats.php', 'icon' => '📊'],
+        ['label' => 'Voir mes cours', 'url' => BASE_URL . 'views/etudiant/cours.php', 'icon' => '📚'],
+        ['label' => 'Mes évaluations', 'url' => BASE_URL . 'views/etudiant/evaluations.php', 'icon' => '📝'],
+        ['label' => 'Rendre une évaluation', 'url' => BASE_URL . 'views/etudiant/depot.php', 'icon' => '📤'],
     ],
     'formateur' => [
         ['label' => 'Mes modules', 'url' => BASE_URL . 'views/formateur/modules.php', 'icon' => '📚'],
         ['label' => 'Mes séances', 'url' => BASE_URL . 'views/formateur/seances.php', 'icon' => '🗓️'],
+        ['label' => 'Feuille d’appel', 'url' => BASE_URL . 'views/formateur/appel.php', 'icon' => '✅'],
         ['label' => 'Évaluations', 'url' => BASE_URL . 'views/formateur/evaluations.php', 'icon' => '📝'],
         ['label' => 'Documents pédagogiques', 'url' => BASE_URL . 'views/formateur/supports.php', 'icon' => '📎'],
     ],
     'responsable' => [
-        ['label' => 'Étudiants', 'url' => BASE_URL . 'responsable/etudiants.php', 'icon' => '🎓'],
-        ['label' => 'Formations', 'url' => BASE_URL . 'responsable/formations.php', 'icon' => '📘'],
-        ['label' => 'Planning', 'url' => BASE_URL . 'responsable/planning.php', 'icon' => '🗓️'],
+        ['label' => 'Étudiants', 'url' => BASE_URL . 'views/responsable/etudiants.php', 'icon' => '🎓'],
+        ['label' => 'Formations', 'url' => BASE_URL . 'views/responsable/formations.php', 'icon' => '📘'],
+        ['label' => 'Planning', 'url' => BASE_URL . 'views/responsable/planning.php', 'icon' => '🗓️'],
     ],
     'comptable' => [
         ['label' => 'Paiements', 'url' => BASE_URL . 'views/comptable/paiements.php', 'icon' => '💳'],
